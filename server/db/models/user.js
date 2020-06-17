@@ -40,7 +40,7 @@ const User = db.define('user', {
     }
   },
   creditCardNum: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull: false,
     validate: {
       isCreditCard: true
