@@ -1,12 +1,16 @@
 const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
+const {validate} = require('../db')
 
 const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
   },
   password: {
     type: Sequelize.STRING,
@@ -26,6 +30,21 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+  billingAddress: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  creditCardNum: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    validate: {
+      isCreditCard: true
+    }
+  },
+  shippingAddress: {
+    type: Sequelize.STRING,
+    allowNull: false
   }
 })
 
