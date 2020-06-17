@@ -18,7 +18,8 @@ const Product = db.define('product', {
   },
   quantityInStock: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: false,
+    defaultValue: 20
   }
 })
 

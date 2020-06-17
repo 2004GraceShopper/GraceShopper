@@ -3,8 +3,7 @@ const db = require('../db')
 
 const Item = db.define('item', {
   lockedPrice: {
-    type: Sequelize.INTEGER,
-    allowNull: false
+    type: Sequelize.INTEGER
   },
   quantity: {
     type: Sequelize.INTEGER,

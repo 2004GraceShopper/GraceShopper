@@ -1,11 +1,22 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
-const {validate} = require('../db')
+// const {validate} = require('../db')
 
 const Guest = db.define('guest', {
+  email: {
+    type: Sequelize.STRING,
+    unique: true,
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
+  },
   billingAddress: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
   creditCardNum: {
     type: Sequelize.INTEGER,
@@ -16,7 +27,10 @@ const Guest = db.define('guest', {
   },
   shippingAddress: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   }
 })
 
