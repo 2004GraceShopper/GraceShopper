@@ -10,6 +10,14 @@ const Item = require('./item')
  *
  *    BlogPost.belongsTo(User)
  */
+Cart.belongsTo(User)
+User.hasMany(Cart)
+
+Cart.belongsTo(Guest)
+Guest.hasMany(Cart)
+
+Product.belongsToMany(Cart, {through: Item})
+Cart.belongsToMany(Product, {through: Item})
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
