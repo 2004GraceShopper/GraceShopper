@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {fetchProduct} from '../store/product'
+// import {Link} from 'react-router-dom'
+import {fetchProduct} from '../store/singleProduct'
 
 class SingleProduct extends React.Component {
   componentDidMount() {
@@ -9,6 +9,7 @@ class SingleProduct extends React.Component {
   }
 
   render() {
+    console.log(this.props)
     const product = this.props.product
 
     return (
@@ -24,15 +25,16 @@ class SingleProduct extends React.Component {
 }
 
 const mapState = state => {
+  console.log('sate.product', state.singleProduct)
   return {
-    product: state.product
+    product: state.singleProduct
   }
 }
 
 const mapDispatch = dispatch => {
   return {
     getProduct: id => {
-      dispatch(fetchProduct(id))
+      return dispatch(fetchProduct(id))
     }
   }
 }

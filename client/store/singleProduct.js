@@ -1,20 +1,22 @@
 import axios from 'axios'
 
 //action types
-const SET_PRODUCT = 'GET_PRODUCT'
+const SET_PRODUCT = 'SET_PRODUCT'
 
 //inital state
 const defaultProduct = {}
 
 //action creators
-const setProduct = product => ({type: SET_PRODUCT, product})
+const setProduct = product => {
+  return {type: SET_PRODUCT, product}
+}
 
 //thunk creators
 export const fetchProduct = id => {
   return async dispatch => {
     try {
-      const res = await axios.get(`/api/products/:${id}`)
-      dispatch(setProduct(res.data))
+      const {data} = await axios.get(`/api/products/${id}`)
+      dispatch(setProduct(data))
     } catch (error) {
       console.log('Error with fetching a single Product', error)
     }
