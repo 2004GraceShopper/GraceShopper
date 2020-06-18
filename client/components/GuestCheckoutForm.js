@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
 import {createGuest} from '../store/guest'
 
 export class GuestCheckoutForm extends React.Component {
@@ -9,7 +10,8 @@ export class GuestCheckoutForm extends React.Component {
       emailAddress: '',
       billingAddress: '',
       shippingAddress: '',
-      creditCardNum: ''
+      creditCardNum: '',
+      redirectToConfirmation: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -22,8 +24,13 @@ export class GuestCheckoutForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault()
     this.props.addGuest(this.state)
+    this.setState(prevState => ({
+      redirectToConfirmation: !prevState.redirectToConfirmation
+    }))
   }
   render() {
+    const redirectToConfirmation = this.state.redirectToConfirmation
+    if (redirectToConfirmation) return <Redirect to="/" />
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
