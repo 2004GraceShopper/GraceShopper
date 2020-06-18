@@ -5,7 +5,7 @@ module.exports = router
 router.post('/', async (req, res, next) => {
   try {
     const guest = await Guest.create(req.body)
-    res.json(guest)
+    res.status(201).send(guest)
   } catch (error) {
     next(error)
   }
