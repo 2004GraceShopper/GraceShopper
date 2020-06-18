@@ -58,7 +58,7 @@ export class GuestCheckoutForm extends React.Component {
             <div>Credit Card Number:</div>
             <input
               type="text"
-              name="creditNum"
+              name="creditCardNum"
               value={this.state.creditCardNum}
               onChange={this.handleChange}
             />
