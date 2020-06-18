@@ -11,9 +11,14 @@ class AllProducts extends React.Component {
     return (
       <div>
         <h1>This is the All Products Page</h1>
-        {this.props.products.map(product => {
-          return <li key={product.id}>{product.name}</li>
-        })}
+        <div className="allProducts">
+          {this.props.products.map(product => (
+            <div key={product.id}>
+              <img src={product.imageUrl} />
+              {product.name}
+            </div>
+          ))}
+        </div>
       </div>
     )
   }

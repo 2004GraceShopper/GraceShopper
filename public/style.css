@@ -19,3 +19,11 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+img {
+  width: 40%;
+}
+
+.allProducts {
+  margin: 5%;
+}
