@@ -12,7 +12,7 @@ const Product = db.define('product', {
   },
   price: {
     //pennies -- INTEGER -- hook: convert to dollar amount
-    type: Sequelize.FLOAT,
+    type: Sequelize.INTEGER,
     allowNull: false
   },
   description: {
