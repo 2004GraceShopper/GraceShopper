@@ -9,7 +9,7 @@ export class GuestCheckoutForm extends React.Component {
       emailAddress: '',
       billingAddress: '',
       shippingAddress: '',
-      creditNum: ''
+      creditCardNum: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -54,12 +54,12 @@ export class GuestCheckoutForm extends React.Component {
               onChange={this.handleChange}
             />
           </label>
-          <label htmlFor="creditNum">
+          <label htmlFor="creditCardNum">
             <div>Credit Card Number:</div>
             <input
               type="text"
               name="creditNum"
-              value={this.state.creditNum}
+              value={this.state.creditCardNum}
               onChange={this.handleChange}
             />
           </label>
