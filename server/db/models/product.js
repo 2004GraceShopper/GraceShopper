@@ -11,6 +11,7 @@ const Product = db.define('product', {
     allowNull: false
   },
   price: {
+    //pennies -- INTEGER -- hook: convert to dollar amount
     type: Sequelize.INTEGER,
     allowNull: false
   },
@@ -19,6 +20,7 @@ const Product = db.define('product', {
   },
   imageUrl: {
     type: Sequelize.STRING
+    //default value
   },
   quantityInStock: {
     type: Sequelize.INTEGER,
