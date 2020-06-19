@@ -60,9 +60,13 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/games/:id" component={SingleProduct} />
         <Route exact path="/games" component={AllProducts} />
+        <Route
+          exact
+          path="/cart/guest_checkout"
+          component={GuestCheckoutForm}
+        />
         // Need to consider when :id is null (aka guest)
-        <Route path="/cart/:id" component={Cart} />
-        <Route exact path="/cart/guest_checkout" component={GuestCheckoutForm} />
+        <Route exact path="/cart/:id" component={Cart} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
