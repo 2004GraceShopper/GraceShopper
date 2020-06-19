@@ -28,27 +28,37 @@ class SingleProduct extends React.Component {
     const product = this.props.product
 
     return (
-      <div id="single_product">
-        <img src={product.imageUrl} />
-        <h2>{product.name}</h2>
-        <h3>${product.price / 100}</h3>
-        <h4>{product.publisher}</h4>
-        <div>{product.details}</div>
-        <div>
-          <label htmlFor={this.props.name}>Quantity</label>
-          <input
-            type="number"
-            name="qty"
-            value={this.state.quantity}
-            onChange={this.handleChange}
-          />
+      <div className="container">
+        <div id="single_product">
+          <div className="image">
+            <img src={product.imageUrl} />
+          </div>
+          <div className="product_specs">
+            <div className="product_headers">
+              <h2 className="product_name">{product.name}</h2>
+              <h3 className="product_price">${product.price / 100}</h3>
+               <div>
+                <div>
+                  <label htmlFor={this.props.name}>Quantity</label>
+                   <input
+                     type="number"
+                      name="qty"
+                      value={this.state.quantity}
+                      onChange={this.handleChange}
+                     />
+                </div>
+                <button
+                  className="addToCart"
+                    onClick={() => this.props.addToCartFunc(product.id, this.state.qty)}
+                    >
+                    Add To Cart
+                 </button>
+               </div>
+              <h4 className="product_publisher">{product.publisher}</h4>
+            </div>
+            <div className="product_description">{product.description}</div>
+          </div>
         </div>
-        <button
-          className="addToCart"
-          onClick={() => this.props.addToCartFunc(product.id, this.state.qty)}
-        >
-          Add To Cart
-        </button>
       </div>
     )
   }

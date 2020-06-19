@@ -19,7 +19,7 @@ const Guest = db.define('guest', {
     }
   },
   creditCardNum: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull: false,
     validate: {
       isCreditCard: true
