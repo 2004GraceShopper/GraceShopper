@@ -4,12 +4,27 @@ import {connect} from 'react-redux'
 import {fetchProduct} from '../store/singleProduct'
 
 class SingleProduct extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      qty: 0
+    }
+    this.handleChange = this.handleChange.bind(this)
+  }
+
   componentDidMount() {
     this.props.getProduct(this.props.match.params.id)
   }
 
+  handleChange(event) {
+    if (event.target.value > -1) {
+      this.setState({
+        quantity: event.target.value
+      })
+    }
+  }
+
   render() {
-    console.log(this.props)
     const product = this.props.product
 
     return (
@@ -22,6 +37,23 @@ class SingleProduct extends React.Component {
             <div className="product_headers">
               <h2 className="product_name">{product.name}</h2>
               <h3 className="product_price">${product.price / 100}</h3>
+               <div>
+                <div>
+                  <label htmlFor={this.props.name}>Quantity</label>
+                   <input
+                     type="number"
+                      name="qty"
+                      value={this.state.quantity}
+                      onChange={this.handleChange}
+                     />
+                </div>
+                <button
+                  className="addToCart"
+                    onClick={() => this.props.addToCartFunc(product.id, this.state.qty)}
+                    >
+                    Add To Cart
+                 </button>
+               </div>
               <h4 className="product_publisher">{product.publisher}</h4>
             </div>
             <div className="product_description">{product.description}</div>
@@ -33,7 +65,6 @@ class SingleProduct extends React.Component {
 }
 
 const mapState = state => {
-  console.log('sate.product', state.singleProduct)
   return {
     product: state.singleProduct
   }

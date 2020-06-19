@@ -10,3 +10,15 @@ router.post('/', async (req, res, next) => {
     next(error)
   }
 })
+
+// router.put('/:id/cart', async (req, res, next) => {
+//     try {
+//         const newItem = await Item.create({
+//             quantity: 1,
+//             productId
+//         })
+//     } catch (error) {
+//         next(error)
+//     }
+// })
+
