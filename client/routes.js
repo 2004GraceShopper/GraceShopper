@@ -98,7 +98,12 @@ const mapDispatch = dispatch => {
   return {
     async loadInitialData() {
       console.log('**loadInitialData**')
-      await dispatch(me())
+      try {
+        await dispatch(me())
+      } catch (error) {
+        console.error(error)
+      }
+
       // await dispatch(fetchCart(id, isUser)) // Doesn't work because it needs the result from dispatch(me), and awaiting isn't helping grab it
     },
     loadCart(id, isUser) {
