@@ -17,6 +17,8 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+// Gets user's cart for cart view.
+// Consider changing from eager loading to just findOne cart where userid = :id
 router.get('/:id', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id, {
@@ -27,6 +29,16 @@ router.get('/:id', async (req, res, next) => {
       ]
     })
     res.json(user)
+  } catch (error) {
+    next(error)
+  }
+})
+
+// User creation.
+router.post('/', async (req, res, next) => {
+  try {
+    const user = await User.create(req.body)
+    res.status(201).send(user)
   } catch (error) {
     next(error)
   }

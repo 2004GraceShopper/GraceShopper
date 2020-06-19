@@ -3,7 +3,8 @@ const db = require('../db')
 
 const Cart = db.define('cart', {
   items: {
-    type: Sequelize.ARRAY(Sequelize.INTEGER)
+    type: Sequelize.ARRAY(Sequelize.INTEGER),
+    defaultValue: []
   },
   totalQuantity: {
     type: Sequelize.INTEGER,
@@ -16,6 +17,9 @@ const Cart = db.define('cart', {
   purchased: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  mySession: {
+    type: Sequelize.STRING
   }
 })
 
