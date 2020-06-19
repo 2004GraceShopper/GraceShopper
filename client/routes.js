@@ -65,7 +65,7 @@ class Routes extends Component {
           path="/cart/guest_checkout"
           component={GuestCheckoutForm}
         />
-        // Need to consider when :id is null (aka guest)
+        {/*Need to consider when :id is null (aka guest)*/}
         <Route exact path="/cart/:id" component={Cart} />
         {isLoggedIn && (
           <Switch>
