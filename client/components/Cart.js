@@ -39,7 +39,7 @@ class Cart extends React.Component {
 
     const redirectingCheckout = this.state.redirectingCheckout
     if (redirectingCheckout) {
-      return <Redirect to="/" />
+      return <Redirect to="/cart/guest_checkout" />
     }
     return (
       <div>
