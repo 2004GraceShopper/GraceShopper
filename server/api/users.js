@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
+const {Cart} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -16,6 +17,24 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+// Gets user's cart for cart view.
+// Consider changing from eager loading to just findOne cart where userid = :id
+router.get('/:id', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id, {
+      include: [
+        {
+          model: Cart
+        }
+      ]
+    })
+    res.json(user)
+  } catch (error) {
+    next(error)
+  }
+})
+
+// User creation.
 router.post('/', async (req, res, next) => {
   try {
     const user = await User.create(req.body)
@@ -24,4 +43,3 @@ router.post('/', async (req, res, next) => {
     next(error)
   }
 })
-
