@@ -45,7 +45,7 @@ class SingleProduct extends React.Component {
         </div>
         <button
           className="addToCart"
-          onClick={() => this.props.addToCartFunc(product.id, qty)}
+          onClick={() => this.props.addToCartFunc(product.id, this.state.qty)}
         >
           Add To Cart
         </button>
