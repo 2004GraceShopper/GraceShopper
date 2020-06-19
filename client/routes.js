@@ -25,9 +25,9 @@ class Routes extends Component {
     }
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     console.log('Component did mount:', this.props.isLoggedIn)
-    await this.props
+    this.props
       .loadInitialData()
       .then(console.log('after loadInitialData: ', this.props))
       .then(
