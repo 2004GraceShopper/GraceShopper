@@ -7,7 +7,7 @@ const Item = db.define('item', {
   },
   quantity: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    defaultValue: 1
   }
 })
 
