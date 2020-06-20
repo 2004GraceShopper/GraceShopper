@@ -1,5 +1,6 @@
 import React from 'react'
-
+//thoughts: ability to toggle a div saying "welcome back {user}" based on logged in status
+// thus no longer making this a dumb compoenent
 const GuestHome = () => {
   return (
     <div className="container">
