@@ -42,21 +42,38 @@ class Cart extends React.Component {
       return <Redirect to="/cart/guest_checkout" />
     }
     return (
-      <div>
-        <div>
-          <h3>This is your cart!</h3>
-          <li>Items: </li>
-          <li>Subtotal: </li>
-          <li>Shipping: FREE</li>
-          <li>Total: $</li>
-        </div>
-        <div>
-          <button type="submit" onClick={this.handleCheckout}>
-            Checkout
-          </button>
-          <button type="submit" onClick={this.handleContinueShopping}>
-            Continue Shopping
-          </button>
+      <div className="container">
+        <div id="cart">
+          <h3>Your Cart:</h3>
+          <div id="cart_view">
+            <div className="cart_items">
+              <h4 className="items">Items: </h4>
+              <div className="cart_contents">
+                {' '}
+                currently no items because the code hasnt been written!!!
+              </div>
+              {/* conditional -> empty? 'cart is empty' : 'product list' */}
+              {/* this.cart.items ? send to Single-product?*/}
+            </div>
+            <div className="order_summary_container">
+              <div className="order_summary">
+                <h4>Order Summary:</h4>
+                <div>Subtotal: </div>
+                {/* code to calculate subtotal */}
+                <div>Shipping: FREE </div>
+                <div>Total: </div>
+                {/* code to calculate total */}
+                <div className="cart_buttons">
+                  <button type="submit" onClick={this.handleCheckout}>
+                    Checkout
+                  </button>
+                  <button type="submit" onClick={this.handleContinueShopping}>
+                    Continue Shopping
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     )
