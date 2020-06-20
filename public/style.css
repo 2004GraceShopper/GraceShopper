@@ -44,6 +44,33 @@ img {
   justify-content: space-between;
 }
 
+/* GUESTHOME */
+.title {
+  padding: 10rem 10rem;
+  background-color: rgb(82, 82, 82);
+}
+
+.home {
+  display: flex;
+  padding: 2rem 2rem;
+  background-color: rgb(148, 148, 148);
+  flex-direction: column;
+}
+
+#tags {
+  display: flex;
+  background-color: rgb(255, 255, 255);
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  padding: 2rem 2rem;
+}
+
+.tag {
+  width: 18%;
+  flex-wrap: nowrap;
+}
+
 /* ALL PRODUCTS COMPONENT */
 #all_products {
   display: flex;
