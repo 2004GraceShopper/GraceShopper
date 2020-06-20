@@ -9,13 +9,19 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     {/* <h1 id="never_bored">NEVER-BORED</h1> */}
     <nav id="nav">
       {isLoggedIn ? (
-        <div>
+        <div className="nav_container">
           {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          {/* theoredically most non-login links should also be accessible here */}
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
+          <div className="nav_left">
+            <Link to="/home">Home</Link>
+            <Link to="/games">All Games</Link>
+          </div>
+          <h1 id="never_bored">NEVER-BORED</h1>
+          <div className="nav_right">
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
+            <Link to="/cart/:id">Cart : *code tbd*</Link>
+          </div>
         </div>
       ) : (
         <div className="nav_container">
