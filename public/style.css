@@ -30,6 +30,22 @@ img {
   padding: 2rem 0;
   justify-content: center;
 }
+/* NAVBAR */
+#navbar {
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+}
+
+#never_bored {
+  background-color: grey;
+}
+
+#nav {
+  display: flex;
+  flex-direction: column;
+  background-color: grey;
+}
 
 /* ALL PRODUCTS COMPONENT */
 #all_products {
