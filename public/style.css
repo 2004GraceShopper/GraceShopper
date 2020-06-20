@@ -199,3 +199,33 @@ img {
   padding: 1rem 1rem;
   background-color: white;
 }
+
+/* GUEST CHECKOUT */
+
+.form_sub-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 2rem 2rem;
+  background-color: darkgrey;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 2rem 2rem;
+  background-color: white;
+}
+
+.input-field {
+  justify-content: center;
+  align-content: center;
+  flex-direction: row;
+  background-color: grey;
+}
+
+.submit_button_specs {
+  flex-direction: row;
+  justify-content: center;
+}
