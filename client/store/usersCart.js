@@ -26,8 +26,7 @@ export const fetchCart = (id, isUser) => {
     console.log('fetchCart thunk is running: ' + id)
     try {
       // Prepare a flexible route ending:
-      let userOrGuest
-      isUser ? (userOrGuest = `${id}`) : (userOrGuest = `guest`)
+      let userOrGuest = isUser ? `${id}` : `guest`
 
       {
         /*Use the flexible route ending to get the guest OR user cart:*/
