@@ -6,10 +6,11 @@ module.exports = router
 router.post('/guest', async (req, res, next) => {
   console.log('Oh hey! It ran the post to create a guest cart!')
   try {
-    console.log('in cart.js, sessionId: ', req.sessionID)
+    console.log('in cart.js, req.session.id: ', req.session.id)
+    console.log('in cart.js, req.sessionID: ', req.sessionID)
     const theCart = await Cart.findOrCreate({
       where: {
-        mySession: req.sessionID,
+        mySession: req.session.id,
         purchased: false
       }
     })
@@ -51,7 +52,8 @@ router.put(`/add/:productId/:quantity/:cartId`, async (req, res, next) => {
     const maybeTheItem = await Item.findOne({
       // Will be null or an item instance
       where: {
-        productId: req.params.productId
+        productId: req.params.productId,
+        cartId: req.params.cartId
       }
     })
     let theItem
@@ -78,40 +80,11 @@ router.put(`/add/:productId/:quantity/:cartId`, async (req, res, next) => {
     theCart.totalPrice += quantityInt * theProduct.price
     await theCart.save()
 
-    // All good? Send back a yay!
-    res.json('Yay')
+    // All good? Send back the updated cart, which is just an object.
+    // Note: this is different from how the cart was an array through findOrCreate.
+    res.json(theCart)
   } catch (error) {
     console.log('Error while adding to cart in backend: ', error)
     next(error)
   }
 })
-
-// router.put('/addToCart/:productId/:userId', async (req, res, next) => {
-//     try {
-//         console.log("req.session:", req.session)
-//         console.log("req.sessionID: ", req.sessionID)
-
-//         const theProduct = await Product.findByPk(req.params.productId)
-
-//         // I need to eager load the cart that belongs to User that is NOT purchased.
-//         const theCart = await Cart.findOrCreate({
-//           where: {
-//             userId: req.params.userId
-//           },
-//           defaults: {
-//             items: [],
-//             userId: req.params.userId
-//           }
-//         })
-
-//         // This might need to be theCart.addProduct(theProduct); I'm not sure.
-//         const theItem = await theProduct.addCart(theCart)
-//         // After making the Item row, we need to add qty to that item row
-//         theItem.quantity = req.body.qty
-//         await theItem.save();
-//         res.json("Yay");
-//     } catch (error) {
-//         console.log("req.params.productId", req.params.productId)
-//         next(error)
-//     }
-// })

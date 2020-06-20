@@ -27,7 +27,15 @@ class SingleProduct extends React.Component {
 
   render() {
     const product = this.props.product
-    const usersCartId = this.props.usersCartId
+    const cartKeys = Object.keys(this.props.usersCart)
+    const usersCartId =
+      cartKeys.indexOf('0') === -1
+        ? this.props.usersCart.id
+        : this.props.usersCart[0].id
+    const handleClick = () => {
+      this.props.addToCartFunc(product.id, this.state.quantity, usersCartId)
+      this.setState({quantity: 0})
+    }
 
     return (
       <div className="container">
@@ -49,16 +57,7 @@ class SingleProduct extends React.Component {
                     onChange={this.handleChange}
                   />
                 </div>
-                <button
-                  className="addToCart"
-                  onClick={() =>
-                    this.props.addToCartFunc(
-                      product.id,
-                      this.state.quantity,
-                      usersCartId
-                    )
-                  }
-                >
+                <button className="addToCart" onClick={() => handleClick()}>
                   Add To Cart
                 </button>
               </div>
@@ -73,10 +72,11 @@ class SingleProduct extends React.Component {
 }
 
 const mapState = state => {
-  console.log('*******state.usersCart[0].id: ', state.usersCart[0].id)
+  // console.log('*******state.usersCart[0].id: ', state.usersCart[0].id)
+  console.log('Inside mapState: ', state.usersCart)
   return {
     product: state.singleProduct,
-    usersCartId: state.usersCart[0].id // used to find the cart in the server before updating it.
+    usersCart: state.usersCart // the whole user cart item (might be an array if from findOrCreate, or an object).
   }
 }
 
