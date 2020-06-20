@@ -29,7 +29,9 @@ export const fetchCart = (id, isUser) => {
       let userOrGuest
       isUser ? (userOrGuest = `${id}`) : (userOrGuest = `guest`)
 
-      // Use the flexible route ending to get the guest OR user cart:
+      {
+        /*Use the flexible route ending to get the guest OR user cart:*/
+      }
       const {data} = await axios.post(`/api/cart/${userOrGuest}`)
       dispatch(setCart(data))
     } catch (error) {
