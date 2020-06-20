@@ -9,7 +9,8 @@ import {
   AllProducts,
   SingleProduct,
   Cart,
-  GuestCheckoutForm
+  GuestCheckoutForm,
+  GuestHome
 } from './components'
 import {me} from './store'
 import {fetchCart} from './store/usersCart'
@@ -56,16 +57,18 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/games/:id" component={SingleProduct} />
+        <Route exact path="/" component={GuestHome} />
         <Route exact path="/games" component={AllProducts} />
+        <Route exact path="/games/:id" component={SingleProduct} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={Signup} />
         <Route
           exact
           path="/cart/guest_checkout"
           component={GuestCheckoutForm}
         />
-        {/*Need to consider when :id is null (aka guest)*/}
+
+        {/* Need to consider when :id is null (aka guest) */}
         <Route exact path="/cart/:id" component={Cart} />
         {isLoggedIn && (
           <Switch>
@@ -74,7 +77,7 @@ class Routes extends Component {
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
-        <Route component={Login} />
+        {/* <Route component={Login} /> */}
       </Switch>
     )
   }

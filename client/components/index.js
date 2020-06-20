@@ -1,3 +1,5 @@
+import GuestHome from './guest-home'
+
 /**
  * `components/index.js` exists simply as a 'central export' for our components.
  * This way, we can import all of our components from the same place, rather than
@@ -10,3 +12,4 @@ export {default as SingleProduct} from './singleProduct'
 export {default as AllProducts} from './AllProducts'
 export {default as Cart} from './Cart'
 export {default as GuestCheckoutForm} from './GuestCheckoutForm'
+export {default as GuestHome} from './guest-home'
