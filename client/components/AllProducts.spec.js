@@ -7,6 +7,8 @@ import configureMockStore from 'redux-mock-store'
 import thunkMiddleware from 'redux-thunk'
 import MockAdapter from 'axios-mock-adapter'
 import axios from 'axios'
+import sinon from 'sinon'
+//import {MemoryRouter} from 'react-router'
 const adapter = new Adapter()
 enzyme.configure({adapter})
 //import waitForExpect from 'wait-for-expect'
@@ -17,7 +19,7 @@ import reducer, {
   getProducts,
   fetchProducts
 } from '../../client/store/allProducts'
-import {AllProducts} from './index'
+import AllProducts from './AllProducts'
 import {MemoryRouter} from 'react-router-dom'
 
 const middlewares = [thunkMiddleware]
@@ -101,40 +103,6 @@ describe('AllProducts', () => {
         const newState = fakeStore.getState()
         expect(newState).to.be.deep.equal(products)
         expect(newState).to.not.be.equal(prevState)
-      })
-    })
-  })
-  describe('Connect:react-redux', () => {
-    // testing the connection our react component when connected to the redux store
-    // import the store from the index file and import the connected component
-    // simulate the componentMount and check the state in the redux store
-    it('initializes robots from the server once <AllProducts/> mounts', async () => {
-      const stateBeforeComponentMount = store.getState()
-      expect(stateBeforeComponentMount.products).to.deep.equal([])
-      const wrapper2 = mount(
-        <Provider store={store}>
-          <MemoryRouter>
-            <AllProducts />
-          </MemoryRouter>
-        </Provider>
-      )
-      const stateAfterComponentMount = store.getState()
-      expect(stateAfterComponentMount).to.equal(products)
-      it('should call componentDidMount once', () => {
-        jest.spyOn(AllProducts.protoype, 'componentDidMount')
-        const wrapper = shallow(<AllProducts />)
-        expect(AllProducts.prototype.componentDidMount.mock.length).toBe(1)
-      })
-      const wrapper = mount(
-        <Provider store={store}>
-          <MemoryRouter>
-            <AllProducts />
-          </MemoryRouter>
-        </Provider>
-      )
-      const {productsAfterMount} = store.getState
-      productsAfterMount.forEach(product => {
-        expect(wrapper.text()).to.include(product.name)
       })
     })
   })
