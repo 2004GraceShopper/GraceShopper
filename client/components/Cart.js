@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchCart} from '../store/cart'
+import {fetchItems} from '../store/usersCart'
 import {Redirect} from 'react-router-dom'
 
 class Cart extends React.Component {
@@ -8,13 +9,33 @@ class Cart extends React.Component {
     super()
     this.state = {
       redirecting: false,
-      redirectingCheckout: false
+      redirectingCheckout: false,
+      didItMount: false
     }
     this.handleContinueShopping = this.handleContinueShopping.bind(this)
     this.handleCheckout = this.handleCheckout.bind(this)
   }
   componentDidMount() {
-    this.props.getCart(this.props.match.params.id)
+    // console.log('who r u', this.props.usersCart['0'].id)
+    console.log('componentDidMount ran')
+    // if(this.props.usersCart['0'] !== undefined){
+    //   this.props.getCart(this.props.usersCart['0'].id)
+    // }
+    // this.props.getCart(this.props.match.params.id)
+    this.setState({didItMount: true})
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('componentDidUpdate ran')
+    console.log('this.props.usersCart[0]', this.props.usersCart['0'])
+    if (prevState.didItMount === false) {
+      //eagerload items with product
+      this.props.getItems(this.props.usersCart['0'].id)
+      //   if(this.props.usersCart['0'] !== undefined){
+      //     this.props.getCart(this.props.usersCart['0'].id)
+      //   }
+      //   this.props.getCart(this.props.match.params.id)
+    }
   }
 
   handleCheckout(event) {
@@ -41,6 +62,15 @@ class Cart extends React.Component {
     if (redirectingCheckout) {
       return <Redirect to="/cart/guest_checkout" />
     }
+
+    let cartItems = []
+    let cartId
+    //seed cartID 0 as a null default situation ???
+    if (this.props.usersCart['0'] !== undefined) {
+      cartItems = this.props.usersCart['0'].items
+      cartId = this.props.usersCart['0'].id
+    }
+
     return (
       <div className="container">
         <div id="cart">
@@ -52,6 +82,7 @@ class Cart extends React.Component {
                 {' '}
                 currently no items because the code hasnt been written!!!
               </div>
+              {cartItems.length > 0 ? 'stuff' : 'no stuff'}
               {/* conditional -> empty? 'cart is empty' : 'product list' */}
               {/* this.cart.items ? send to Single-product?*/}
             </div>
@@ -82,13 +113,15 @@ class Cart extends React.Component {
 
 const mapState = state => {
   return {
-    cart: state.cart
+    cart: state.cart,
+    usersCart: state.usersCart
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    getCart: id => dispatch(fetchCart(id))
+    getCart: id => dispatch(fetchCart(id)),
+    getItems: cartId => dispatch(fetchItems(cartId))
   }
 }
 

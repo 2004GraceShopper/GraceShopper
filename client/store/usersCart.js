@@ -4,6 +4,7 @@ import {GET_USER} from './user'
 // Action types:
 const SET_CART = 'SET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
+const SET_ITEMS = 'SET_ITEMS'
 
 // Action creator:
 const setCart = cart => {
@@ -16,6 +17,12 @@ const addToCart = fullerCart => {
   return {
     type: ADD_TO_CART,
     fullerCart
+  }
+}
+const setItems = items => {
+  return {
+    type: SET_ITEMS,
+    items
   }
 }
 
@@ -53,6 +60,17 @@ export const addToCartInServer = (productId, quantity, cartId) => {
   }
 }
 
+export const fetchItems = cartId => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`/api/cart/${cartId}`)
+      dispatch(setItems(data))
+    } catch (error) {
+      console.log('Error fetching items from server', error)
+    }
+  }
+}
+
 // Reducer:
 export default function cartReducer(state = {}, action) {
   switch (action.type) {
@@ -60,6 +78,9 @@ export default function cartReducer(state = {}, action) {
       return action.cart
     case ADD_TO_CART:
       return action.fullerCart
+    case SET_ITEMS:
+      // cart : { 0: {items}, 1: {} }
+      return {...state, eagerItems: action.items}
     default:
       return state
   }
