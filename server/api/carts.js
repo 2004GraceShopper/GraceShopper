@@ -1,23 +1,14 @@
 const router = require('express').Router()
 const {Product, User, Cart, Item} = require('../db/models')
+//const { Sequelize } = require('sequelize/types')
 module.exports = router
 
 router.get('/:cartId', async (req, res, next) => {
   console.log('cartId?', req.params.cartId)
   try {
-    // const theCart = await Cart.findByPk(req.params.cartId)
-    // res.json(theCart)
     let cartIdInt = req.params.cartId
 
-    // const theItems = await Item.findAll({
-    //   where: {
-    //     cartId: cartIdInt
-    //   },
-    //   include : {
-    //     model: Product,
-    //     as: 'product_specs'
-    //   }
-    // })
+    //this might break when multiple carts exist for given user
     const theItems = await Cart.findAll({
       where: {
         id: cartIdInt
@@ -25,10 +16,18 @@ router.get('/:cartId', async (req, res, next) => {
       include: [
         {
           model: Product,
-          as: Item
+          as: Item,
+          required: true
+          // attributes: [Item.quantity] //--- eager items code block isnt run
+          //attributes: ['quantity'] //--- eager items code block doesnt run
+
+          // where: {
+          //   state: Sequelize.col(Item.lockedPrice,Item.quantity) --- error message: sequelize/types
+          // }
         }
       ]
     })
+
     console.log('Server side GET request theItems', theItems)
     res.json(theItems)
   } catch (error) {

@@ -28,13 +28,15 @@ class Cart extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     console.log('componentDidUpdate ran')
     console.log('this.props.usersCart[0]', this.props.usersCart['0'])
-    if (prevState.didItMount === false) {
+    if (prevState.didItMount === false && this.props.usersCart['0']) {
       //eagerload items with product
       this.props.getItems(this.props.usersCart['0'].id)
       //   if(this.props.usersCart['0'] !== undefined){
       //     this.props.getCart(this.props.usersCart['0'].id)
       //   }
       //   this.props.getCart(this.props.match.params.id)
+    } else if (prevState.didItMount === false && this.props.usersCart.id) {
+      this.props.getItems(this.props.usersCart.id)
     }
   }
 
@@ -66,10 +68,15 @@ class Cart extends React.Component {
     let cartItems = []
     let cartId
     //seed cartID 0 as a null default situation ???
-    if (this.props.usersCart['0'] !== undefined) {
+    if (this.props.usersCart.eagerItems) {
+      console.log('set to eagerItems')
+      cartItems = this.props.usersCart.eagerItems['0'].products
+    } else if (this.props.usersCart['0'] !== undefined) {
+      console.log('else if is running')
       cartItems = this.props.usersCart['0'].items
       cartId = this.props.usersCart['0'].id
     }
+    console.log('cartItems:', cartItems)
 
     return (
       <div className="container">
@@ -79,12 +86,8 @@ class Cart extends React.Component {
             <div className="cart_items">
               <h4 className="items">Items: </h4>
               <div className="cart_contents">
-                {' '}
-                currently no items because the code hasnt been written!!!
+                {cartItems.length > 0 ? 'stuff' : 'no stuff'}
               </div>
-              {cartItems.length > 0 ? 'stuff' : 'no stuff'}
-              {/* conditional -> empty? 'cart is empty' : 'product list' */}
-              {/* this.cart.items ? send to Single-product?*/}
             </div>
             <div className="order_summary_container">
               <div className="order_summary">
