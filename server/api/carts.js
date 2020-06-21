@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const {Product, User, Cart, Item} = require('../db/models')
-//const { Sequelize } = require('sequelize/types')
 module.exports = router
 
 router.get('/:cartId', async (req, res, next) => {
@@ -18,12 +17,6 @@ router.get('/:cartId', async (req, res, next) => {
           model: Product,
           as: Item,
           required: true
-          // attributes: [Item.quantity] //--- eager items code block isnt run
-          //attributes: ['quantity'] //--- eager items code block doesnt run
-
-          // where: {
-          //   state: Sequelize.col(Item.lockedPrice,Item.quantity) --- error message: sequelize/types
-          // }
         }
       ]
     })

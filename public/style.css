@@ -159,9 +159,9 @@ img {
   flex-direction: row;
   padding: 2rem 2rem;
   width: 80%;
-  background-color: grey;
+  background-color: black;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .cart_items {
@@ -170,7 +170,7 @@ img {
   flex-wrap: nowrap;
   flex-direction: column;
   padding: 2rem 2rem;
-  width: 30%;
+  width: 45%;
   background-color: white;
 }
 
@@ -198,6 +198,17 @@ img {
   align-content: center;
   padding: 1rem 1rem;
   background-color: white;
+}
+
+.single_product_cart {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-content: space-around;
+  justify-content: center;
+
+  /* width: 80%; */
+  background-color: grey;
 }
 
 /* GUEST CHECKOUT */

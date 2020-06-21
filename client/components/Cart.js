@@ -86,7 +86,28 @@ class Cart extends React.Component {
             <div className="cart_items">
               <h4 className="items">Items: </h4>
               <div className="cart_contents">
-                {cartItems.length > 0 ? 'stuff' : 'no stuff'}
+                {cartItems.length > 0
+                  ? cartItems.map(product => {
+                      return (
+                        <div key={product.id} className="single_product_cart">
+                          <div className="image">
+                            <img src={product.imageUrl} />
+                          </div>
+                          <div className="product_specs">
+                            <div className="product_headers">
+                              <h2 className="product_name">{product.name}</h2>
+                              <h3 className="product_price">
+                                ${product.price / 100}
+                              </h3>
+                              {/* eventually price will be multiplied by quantity when we can access it */}
+                              {/* <h3>{product.item.quantity} WHY WONT THIS WORK??</h3> */}
+                              <div />
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    })
+                  : 'no stuff'}
               </div>
             </div>
             <div className="order_summary_container">
