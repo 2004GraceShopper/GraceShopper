@@ -4,6 +4,7 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   console.log('**GET api/products**')
+  console.log('req.session.id at get all games: ', req.session.id)
   try {
     const products = await Product.findAll()
     res.json(products)

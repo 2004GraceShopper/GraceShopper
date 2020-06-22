@@ -86,6 +86,7 @@ router.post('/signup', async (req, res, next) => {
 
 router.post('/logout', (req, res) => {
   console.log('**POST auth/logout**')
+  console.log('req.session.id at LOGOUT: ', req.session.id)
   req.logout()
   req.session.destroy()
   res.redirect('/')
