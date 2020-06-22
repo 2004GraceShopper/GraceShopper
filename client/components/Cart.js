@@ -53,9 +53,8 @@ class Cart extends React.Component {
     const redirectingCheckout = this.state.redirectingCheckout
     if (redirectingCheckout && !isLoggedIn) {
       return <Redirect to="/cart/guest_checkout" />
-    
     }
-       if (redirectingCheckout && isLoggedIn) {
+    if (redirectingCheckout && isLoggedIn) {
       return <Redirect to="/" />
     }
 
@@ -65,7 +64,6 @@ class Cart extends React.Component {
       console.log('set to eagerItems')
       cartItems = this.props.usersCart.products
     }
-     
 
     return (
       <div className="container">
@@ -117,7 +115,11 @@ class Cart extends React.Component {
                 </div>
 
                 <div className="cart_buttons">
-                  <button type="submit" onClick={this.handleCheckout}>
+                  <button
+                    disabled={!this.props.usersCart.totalQuantity}
+                    type="submit"
+                    onClick={this.handleCheckout}
+                  >
                     Checkout
                   </button>
                   <button type="submit" onClick={this.handleContinueShopping}>
@@ -138,7 +140,7 @@ const mapState = state => {
   return {
     cart: state.cart,
     usersCart: state.usersCart,
-    isLoggedIn: !!state.user.id,
+    isLoggedIn: !!state.user.id
   }
 }
 
