@@ -60,3 +60,41 @@ router.put(`/add/:productId/:quantity/:cartId`, async (req, res, next) => {
     next(error)
   }
 })
+
+//delete from cart:
+// i need productId and cartId
+router.delete('/:cartId/:productId', async (req, res, next) => {
+  try {
+    //this deleted the associated item in the Item table, but not in the cart items object in the db
+    //on the front end the items are removed from the cart
+    const deletedItem = await Item.destroy({
+      where: {
+        productId: req.params.productId,
+        cartId: req.params.cartId
+      },
+      //works the same regardless of:
+      //include: Cart //goal : delete item from cart's items array
+      include: [
+        {
+          model: Cart
+        }
+      ]
+    })
+
+    // if (theCart.items.indexOf(productIdInt) === -1) {
+    //   let moreItemsArray = [...theCart.items, productIdInt] // FYI pushing to theCart.items array does change it, but Sequelize doesn't recognize the change when saving.
+    //   theCart.items = moreItemsArray
+    // }
+    // theCart.totalQuantity += quantityInt
+    // theCart.totalPrice += quantityInt * theProduct.price
+    // await theCart.save()
+
+    //magic methods
+
+    console.log('deletedItem:', deletedItem)
+    res.json(deletedItem)
+  } catch (error) {
+    console.log('Error deleting item from cart', error)
+    next(error)
+  }
+})

@@ -2,7 +2,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchCart} from '../store/cart'
-import {fetchItems} from '../store/usersCart'
+import {fetchItems, removeFromCart} from '../store/usersCart'
 import {Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
@@ -16,6 +16,7 @@ class Cart extends React.Component {
     }
     this.handleContinueShopping = this.handleContinueShopping.bind(this)
     this.handleCheckout = this.handleCheckout.bind(this)
+    // this.handleDelete =this.handleDelete.bind(this)
   }
 
   componentDidMount() {
@@ -53,9 +54,8 @@ class Cart extends React.Component {
     const redirectingCheckout = this.state.redirectingCheckout
     if (redirectingCheckout && !isLoggedIn) {
       return <Redirect to="/cart/guest_checkout" />
-    
     }
-       if (redirectingCheckout && isLoggedIn) {
+    if (redirectingCheckout && isLoggedIn) {
       return <Redirect to="/" />
     }
 
@@ -65,7 +65,13 @@ class Cart extends React.Component {
       console.log('set to eagerItems')
       cartItems = this.props.usersCart.products
     }
-     
+
+    const handleDelete = product => {
+      event.preventDefault()
+      console.log('handleDelete ran')
+      this.props.deleteItems(product.id)
+      this.setState()
+    }
 
     return (
       <div className="container">
@@ -91,6 +97,14 @@ class Cart extends React.Component {
                                   product.price /
                                   100}
                               </h3>
+                              <button
+                                type="submit"
+                                onClick={() => handleDelete(product)}
+                              >
+                                Remove Item{product.item.quantity > 1
+                                  ? 's'
+                                  : ''}
+                              </button>
                               <div />
                             </div>
                           </div>
@@ -138,11 +152,19 @@ const mapState = state => {
   return {
     cart: state.cart,
     usersCart: state.usersCart,
-    isLoggedIn: !!state.user.id,
+    isLoggedIn: !!state.user.id
   }
 }
 
-export default connect(mapState)(Cart)
+const mapDispatch = dispatch => {
+  return {
+    deleteItems: item => {
+      return dispatch(removeFromCart(item))
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(Cart)
 
 Cart.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired
