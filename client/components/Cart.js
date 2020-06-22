@@ -19,42 +19,12 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-    // console.log('who r u', this.props.usersCart['0'].id)
-    console.log('componentDidMount ran')
-    // if(this.props.usersCart['0'] !== undefined){
-    //   this.props.getCart(this.props.usersCart['0'].id)
-    // }
-    // this.props.getCart(this.props.match.params.id)
-    this.setState({didItMount: !this.didItMount})
-  }
-
-  componentWillUnmount() {
-    console.log('unmounted')
-    this.setState({didItMount: false})
+    // update usersCart is state to now have .eagerItems
+    console.log('componentDidMount in CartView')
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('componentDidUpdate ran')
-    //console.log('this.props.usersCart[0]', this.props.usersCart['0'])
-
-    if (
-      prevState.didItMount !== this.state.didItMount &&
-      this.props.usersCart['0']
-    ) {
-      //eagerload items with product
-      this.props.getItems(this.props.usersCart['0'].id)
-    } else if (
-      prevState.didItMount !== this.state.didItMount &&
-      this.props.usersCart.id
-    ) {
-      this.props.getItems(this.props.usersCart.id)
-    } else {
-      // this.props.getItems(this.props.usersCart['0'].id)
-      console.log('usersCart', this.props.usersCart)
-      console.log('prevState.didItMount', prevState.didItMount)
-      console.log('this.state.didItMount', this.state.didItMount)
-    }
-    // this.setState({didItMount: false}) nopeeee
+    console.log('componentDidUpdate ran in CartView')
   }
 
   handleCheckout(event) {
@@ -90,18 +60,12 @@ class Cart extends React.Component {
     }
 
     let cartItems = []
-    let cartId
-    //seed cartID 0 as a null default situation ???
-    if (this.props.usersCart.eagerItems) {
+    // seed cartID 0 as a null default situation ???
+    if (this.props.usersCart.products) {
       console.log('set to eagerItems')
-      cartItems = this.props.usersCart.eagerItems['0'].products
-    } else if (this.props.usersCart['0'] !== undefined) {
-      console.log('else if is running')
-      cartItems = this.props.usersCart['0'].items
-      cartId = this.props.usersCart['0'].id
+      cartItems = this.props.usersCart.products
     }
-    console.log('cartItems:', cartItems)
-      
+     
 
     return (
       <div className="container">
@@ -121,14 +85,11 @@ class Cart extends React.Component {
                           <div className="product_specs">
                             <div className="product_headers">
                               <h2 className="product_name">{product.name}</h2>
+                              <h3>Quantity: {product.item.quantity}</h3>
                               <h3>
-                                Quantity:{' '}
-                                {product.item ? product.item.quantity : '0'}
-                              </h3>
-                              <h3>
-                                Total Price: ${product.item
-                                  ? product.item.quantity * product.price / 100
-                                  : 'nothing to see here'}
+                                Total Price: ${product.item.quantity *
+                                  product.price /
+                                  100}
                               </h3>
                               <div />
                             </div>
@@ -144,18 +105,15 @@ class Cart extends React.Component {
                 <div className="order_summary_specs">
                   <h4>Order Summary:</h4>
                   <div>
-                    Total Number of Items:{' '}
-                    {this.props.usersCart[0]
-                      ? this.props.usersCart[0].totalQuantity
-                      : this.props.usersCart.totalQuantity}
+                    Total Number of Items: {this.props.usersCart.totalQuantity}
                   </div>
-                  <div>
-                    Subtotal: ${this.props.usersCart[0]
-                      ? this.props.usersCart[0].totalPrice / 100
-                      : this.props.usersCart.totalQuantity}
-                  </div>
+                  <div>Subtotal: ${this.props.usersCart.totalPrice / 100}</div>
                   <div>Shipping: FREE </div>
-                  {/* <div>Total: ${this.props.usersCart[0] ?this.props.usersCart[0].totalPrice / 100 : 'nothing yet'}</div> */}
+                  <div>
+                    Total: ${this.props.usersCart
+                      ? this.props.usersCart.totalPrice / 100
+                      : 'nothing yet'}
+                  </div>
                 </div>
 
                 <div className="cart_buttons">
@@ -181,18 +139,10 @@ const mapState = state => {
     cart: state.cart,
     usersCart: state.usersCart,
     isLoggedIn: !!state.user.id,
-    
   }
 }
 
-const mapDispatch = dispatch => {
-  return {
-    getCart: id => dispatch(fetchCart(id)),
-    getItems: cartId => dispatch(fetchItems(cartId))
-  }
-}
-
-export default connect(mapState, mapDispatch)(Cart)
+export default connect(mapState)(Cart)
 
 Cart.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired

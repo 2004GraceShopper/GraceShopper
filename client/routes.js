@@ -38,22 +38,6 @@ class Routes extends Component {
       )
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.didMount === false) {
-      console.log('Component did update', this.props.isLoggedIn)
-      // Note: if guest, else is user
-      const loadCartFunc = () => {
-        console.log('loadCartFunc')
-        if (!this.props.isLoggedIn) {
-          this.props.loadCart(null, this.props.isLoggedIn)
-        } else {
-          this.props.loadCart(this.props.userId, this.props.isLoggedIn)
-        }
-      }
-      loadCartFunc(this.props.userId, this.props.isLoggedIn)
-    }
-  }
-
   render() {
     console.log('this is routes props', this.props)
     const {isLoggedIn} = this.props

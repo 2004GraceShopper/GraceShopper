@@ -24,12 +24,12 @@ async function seed() {
     })
   ])
 
-  const carts = await Promise.all([
-    Cart.create({
-      userId: 1,
-      items: [1, 2, 3]
-    })
-  ])
+  // const carts = await Promise.all([
+  //   Cart.create({
+  //     userId: 1,
+  //     items: [1, 2, 3]
+  //   })
+  // ])
 
   const products = await Promise.all([
     Product.create({

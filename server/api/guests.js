@@ -3,6 +3,7 @@ const {Guest} = require('../db/models')
 module.exports = router
 
 router.post('/', async (req, res, next) => {
+  console.log('**POST api/guests**')
   try {
     const guest = await Guest.create(req.body)
     res.status(201).send(guest)
@@ -21,4 +22,3 @@ router.post('/', async (req, res, next) => {
 //         next(error)
 //     }
 // })
-

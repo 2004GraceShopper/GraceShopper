@@ -5,7 +5,7 @@ import history from '../history'
  * ACTION TYPES
  */
 export const GET_USER = 'GET_USER'
-const REMOVE_USER = 'REMOVE_USER'
+export const REMOVE_USER = 'REMOVE_USER'
 
 /**
  * INITIAL STATE
@@ -17,7 +17,11 @@ const defaultUser = {
 /**
  * ACTION CREATORS
  */
-export const getUser = user => ({type: GET_USER, user})
+export const getUser = data => ({
+  type: GET_USER,
+  user: data.user,
+  userCart: data.userCart
+})
 const removeUser = () => ({type: REMOVE_USER})
 
 /**
@@ -64,7 +68,10 @@ export const logout = () => async dispatch => {
 export default function(state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
-      return action.user
+      if (action.user) {
+        return action.user
+      }
+      return state
     case REMOVE_USER:
       return defaultUser
     default:
