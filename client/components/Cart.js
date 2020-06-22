@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {fetchCart} from '../store/cart'
 import {fetchItems} from '../store/usersCart'
 import {Redirect} from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 class Cart extends React.Component {
   constructor() {
@@ -71,14 +72,21 @@ class Cart extends React.Component {
   }
 
   render() {
+    console.log('this is props in cart', this.props)
+    const {isLoggedIn} = this.props
+
     const redirecting = this.state.redirecting
     if (redirecting) {
       return <Redirect to="/games" />
     }
 
     const redirectingCheckout = this.state.redirectingCheckout
-    if (redirectingCheckout) {
+    if (redirectingCheckout && !isLoggedIn) {
       return <Redirect to="/cart/guest_checkout" />
+    
+    }
+       if (redirectingCheckout && isLoggedIn) {
+      return <Redirect to="/" />
     }
 
     let cartItems = []
@@ -93,6 +101,7 @@ class Cart extends React.Component {
       cartId = this.props.usersCart['0'].id
     }
     console.log('cartItems:', cartItems)
+      
 
     return (
       <div className="container">
@@ -167,9 +176,12 @@ class Cart extends React.Component {
 }
 
 const mapState = state => {
+  console.log('this is state', state)
   return {
     cart: state.cart,
-    usersCart: state.usersCart
+    usersCart: state.usersCart,
+    isLoggedIn: !!state.user.id,
+    
   }
 }
 
@@ -181,3 +193,7 @@ const mapDispatch = dispatch => {
 }
 
 export default connect(mapState, mapDispatch)(Cart)
+
+Cart.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired
+}
