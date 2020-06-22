@@ -14,6 +14,7 @@ import {
 } from './components'
 import {me} from './store'
 import {fetchCart} from './store/usersCart'
+import PathNotFound from './components/PathNotFound'
 
 /**
  * COMPONENT
@@ -38,6 +39,7 @@ class Routes extends Component {
   }
 
   render() {
+    console.log('this is routes props', this.props)
     const {isLoggedIn} = this.props
 
     return (
@@ -53,6 +55,7 @@ class Routes extends Component {
           path="/cart/guest_checkout"
           component={GuestCheckoutForm}
         />
+        <Route path="/" component={PathNotFound} />
 
         {/* Need to consider when :id is null (aka guest) */}
         <Route exact path="/cart" component={Cart} />

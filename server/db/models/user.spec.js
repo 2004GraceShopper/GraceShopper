@@ -47,19 +47,19 @@ describe('User model', () => {
 }) // end describe('User model')
 
 // PRODUCT MODEL TESTS
-describe('User model', () => {
+describe('Product model', () => {
   let game1
   beforeEach(() => {
     return db.sync({force: true})
   })
-  beforeEach(() => {
-    game1 = {
+  beforeEach(async () => {
+    game1 = await Product.create({
       name: 'game1',
       publisher: 'publisher1',
       price: 200,
       description: 'this is a fun game',
       imageUrl: 'https://via.placeholder.com/150'
-    }
+    })
   })
 
   it('sets the default quantity of the product to 20', () => {
