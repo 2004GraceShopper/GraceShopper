@@ -148,7 +148,7 @@ img {
 #cart {
   display: flex;
   flex-direction: column;
-  background-color: rgb(38, 38, 38);
+  background-color: darkgrey;
   align-items: center;
   padding: 2rem 0;
 }
@@ -191,11 +191,20 @@ img {
   background-color: darkgrey;
 }
 
-.cart_buttons {
+.order_summary_specs {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-content: center;
+  padding: 2rem 2rem;
+}
+
+.cart_buttons {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-content: space-between;
+
   padding: 1rem 1rem;
   background-color: white;
 }

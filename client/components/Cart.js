@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchCart} from '../store/cart'
@@ -15,6 +16,7 @@ class Cart extends React.Component {
     this.handleContinueShopping = this.handleContinueShopping.bind(this)
     this.handleCheckout = this.handleCheckout.bind(this)
   }
+
   componentDidMount() {
     // console.log('who r u', this.props.usersCart['0'].id)
     console.log('componentDidMount ran')
@@ -22,22 +24,36 @@ class Cart extends React.Component {
     //   this.props.getCart(this.props.usersCart['0'].id)
     // }
     // this.props.getCart(this.props.match.params.id)
-    this.setState({didItMount: true})
+    this.setState({didItMount: !this.didItMount})
+  }
+
+  componentWillUnmount() {
+    console.log('unmounted')
+    this.setState({didItMount: false})
   }
 
   componentDidUpdate(prevProps, prevState) {
     console.log('componentDidUpdate ran')
-    console.log('this.props.usersCart[0]', this.props.usersCart['0'])
-    if (prevState.didItMount === false && this.props.usersCart['0']) {
+    //console.log('this.props.usersCart[0]', this.props.usersCart['0'])
+
+    if (
+      prevState.didItMount !== this.state.didItMount &&
+      this.props.usersCart['0']
+    ) {
       //eagerload items with product
       this.props.getItems(this.props.usersCart['0'].id)
-      //   if(this.props.usersCart['0'] !== undefined){
-      //     this.props.getCart(this.props.usersCart['0'].id)
-      //   }
-      //   this.props.getCart(this.props.match.params.id)
-    } else if (prevState.didItMount === false && this.props.usersCart.id) {
+    } else if (
+      prevState.didItMount !== this.state.didItMount &&
+      this.props.usersCart.id
+    ) {
       this.props.getItems(this.props.usersCart.id)
+    } else {
+      // this.props.getItems(this.props.usersCart['0'].id)
+      console.log('usersCart', this.props.usersCart)
+      console.log('prevState.didItMount', prevState.didItMount)
+      console.log('this.state.didItMount', this.state.didItMount)
     }
+    // this.setState({didItMount: false}) nopeeee
   }
 
   handleCheckout(event) {
@@ -88,7 +104,6 @@ class Cart extends React.Component {
               <div className="cart_contents">
                 {cartItems.length > 0
                   ? cartItems.map(product => {
-                      console.log('product:', product.item)
                       return (
                         <div key={product.id} className="single_product_cart">
                           <div className="image">
@@ -117,17 +132,23 @@ class Cart extends React.Component {
             </div>
             <div className="order_summary_container">
               <div className="order_summary">
-                <h4>Order Summary:</h4>
-                <div>
-                  Total Number of Items: {this.props.usersCart[0].totalQuantity}
+                <div className="order_summary_specs">
+                  <h4>Order Summary:</h4>
+                  <div>
+                    Total Number of Items:{' '}
+                    {this.props.usersCart[0]
+                      ? this.props.usersCart[0].totalQuantity
+                      : this.props.usersCart.totalQuantity}
+                  </div>
+                  <div>
+                    Subtotal: ${this.props.usersCart[0]
+                      ? this.props.usersCart[0].totalPrice / 100
+                      : this.props.usersCart.totalQuantity}
+                  </div>
+                  <div>Shipping: FREE </div>
+                  {/* <div>Total: ${this.props.usersCart[0] ?this.props.usersCart[0].totalPrice / 100 : 'nothing yet'}</div> */}
                 </div>
-                <div>
-                  Subtotal: ${this.props.usersCart[0].totalPrice / 100}{' '}
-                </div>
-                {/* code to calculate subtotal */}
-                <div>Shipping: FREE </div>
-                <div>Total: ${this.props.usersCart[0].totalPrice / 100}</div>
-                {/* code to calculate total */}
+
                 <div className="cart_buttons">
                   <button type="submit" onClick={this.handleCheckout}>
                     Checkout
