@@ -55,7 +55,6 @@ class Routes extends Component {
           path="/cart/guest_checkout"
           component={GuestCheckoutForm}
         />
-        <Route path="/" component={PathNotFound} />
 
         {/* Need to consider when :id is null (aka guest) */}
         <Route exact path="/cart" component={Cart} />
@@ -67,6 +66,7 @@ class Routes extends Component {
         )}
         {/* Displays our Login component as a fallback */}
         {/* <Route component={Login} /> */}
+        <Route path="/" component={PathNotFound} />
       </Switch>
     )
   }
