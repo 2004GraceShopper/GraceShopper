@@ -159,7 +159,7 @@ img {
   flex-direction: row;
   padding: 2rem 2rem;
   width: 80%;
-  background-color: black;
+  background-color: grey;
   justify-content: space-around;
   align-items: flex-start;
 }
@@ -208,7 +208,7 @@ img {
   justify-content: center;
 
   /* width: 80%; */
-  background-color: grey;
+  /* background-color: grey; */
 }
 
 /* GUEST CHECKOUT */

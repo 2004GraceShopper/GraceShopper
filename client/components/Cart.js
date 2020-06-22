@@ -88,6 +88,7 @@ class Cart extends React.Component {
               <div className="cart_contents">
                 {cartItems.length > 0
                   ? cartItems.map(product => {
+                      console.log('product:', product.item)
                       return (
                         <div key={product.id} className="single_product_cart">
                           <div className="image">
@@ -96,27 +97,36 @@ class Cart extends React.Component {
                           <div className="product_specs">
                             <div className="product_headers">
                               <h2 className="product_name">{product.name}</h2>
-                              <h3 className="product_price">
-                                ${product.price / 100}
+                              <h3>
+                                Quantity:{' '}
+                                {product.item ? product.item.quantity : '0'}
                               </h3>
-                              {/* eventually price will be multiplied by quantity when we can access it */}
-                              {/* <h3>{product.item.quantity} WHY WONT THIS WORK??</h3> */}
+                              <h3>
+                                Total Price: ${product.item
+                                  ? product.item.quantity * product.price / 100
+                                  : 'nothing to see here'}
+                              </h3>
                               <div />
                             </div>
                           </div>
                         </div>
                       )
                     })
-                  : 'no stuff'}
+                  : 'Your cart is currently empty'}
               </div>
             </div>
             <div className="order_summary_container">
               <div className="order_summary">
                 <h4>Order Summary:</h4>
-                <div>Subtotal: </div>
+                <div>
+                  Total Number of Items: {this.props.usersCart[0].totalQuantity}
+                </div>
+                <div>
+                  Subtotal: ${this.props.usersCart[0].totalPrice / 100}{' '}
+                </div>
                 {/* code to calculate subtotal */}
                 <div>Shipping: FREE </div>
-                <div>Total: </div>
+                <div>Total: ${this.props.usersCart[0].totalPrice / 100}</div>
                 {/* code to calculate total */}
                 <div className="cart_buttons">
                   <button type="submit" onClick={this.handleCheckout}>
