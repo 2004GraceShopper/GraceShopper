@@ -30,7 +30,6 @@ router.put(`/add/:productId/:quantity/:cartId`, async (req, res, next) => {
       theItem = theItemArray[0]
       theItem.quantity = quantityInt
     }
-    // After making or finding the Item row, we need to add qty to that item row
     await theItem.save()
 
     // Now that the item is all set, time to update the cart!
