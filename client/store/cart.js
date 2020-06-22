@@ -13,7 +13,7 @@ export const getCart = cart => {
 
 //thunk
 export const fetchCart = id => async dispatch => {
-  const {data} = await axios.get(`/api/users/${id}`, id)
+  const {data} = await axios.get(`/api/cart/${id}`, id)
   dispatch(getCart(data))
 }
 

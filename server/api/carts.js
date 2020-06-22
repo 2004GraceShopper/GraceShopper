@@ -2,6 +2,32 @@ const router = require('express').Router()
 const {Product, User, Cart, Item} = require('../db/models')
 module.exports = router
 
+router.get('/:cartId', async (req, res, next) => {
+  console.log('cartId?', req.params.cartId)
+  try {
+    let cartIdInt = req.params.cartId
+
+    //this might break when multiple carts exist for given user
+    const theItems = await Cart.findAll({
+      where: {
+        id: cartIdInt
+      },
+      include: [
+        {
+          model: Product,
+          as: Item,
+          required: true
+        }
+      ]
+    })
+
+    console.log('Server side GET request theItems', theItems)
+    res.json(theItems)
+  } catch (error) {
+    next(error)
+  }
+})
+
 // Finds or creates a cart for the guest.
 router.post('/guest', async (req, res, next) => {
   console.log('Oh hey! It ran the post to create a guest cart!')
