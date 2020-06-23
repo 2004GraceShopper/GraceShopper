@@ -21,14 +21,6 @@ async function seed() {
       billingAddress: '123 Pug Ln, PugLife, NJ 07047',
       creditCardNum: 4012888888881881,
       shippingAddress: '125 Pug Ln, PugLife, NJ 07047'
-    }),
-    User.create({
-      type: 'admin',
-      email: 'julissa@email.com',
-      password: 'reallyhard2guess',
-      billingAddress: '6 Very Fancy Pl, Fancy, NJ 08796',
-      creditCardNum: 5555555555554444,
-      shippingAddress: '6 Very Fancy Pl, Fancy, NJ 08796'
     })
   ])
 
