@@ -1,7 +1,7 @@
 /* eslint-disable complexity */
 import React from 'react'
 import {connect} from 'react-redux'
-import {increaseQuant, decreaseQuant} from '../store/usersCart'
+import {increaseQuant, decreaseQuant, removeFromCart} from '../store/usersCart'
 import {Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
