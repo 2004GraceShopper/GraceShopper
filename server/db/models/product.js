@@ -34,7 +34,7 @@ const Product = db.define('product', {
 })
 
 Product.findByTag = categories => {
-  return this.findAll({
+  return Product.findAll({
     where: {
       categories: {
         [Sequelize.Op.contains]: [categories]
