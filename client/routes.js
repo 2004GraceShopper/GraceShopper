@@ -13,7 +13,6 @@ import {
   GuestHome
 } from './components'
 import {me} from './store'
-import {fetchCart} from './store/usersCart'
 import PathNotFound from './components/PathNotFound'
 
 /**
@@ -95,14 +94,6 @@ const mapDispatch = dispatch => {
       } catch (error) {
         console.error(error)
       }
-
-      // await dispatch(fetchCart(id, isUser)) // Doesn't work because it needs the result from dispatch(me), and awaiting isn't helping grab it
-    },
-    loadCart(id, isUser) {
-      // Create or find a cart associated with the session/user
-      // At login, this cart should be given the appropriate userId
-      console.log('**loadCart, ', id, ' isUser:', isUser)
-      dispatch(fetchCart(id, isUser))
     }
   }
 }

@@ -37,6 +37,7 @@ export default function cartReducer(state = {}, action) {
     case ADD_TO_CART:
       return action.fullerCart
     case REMOVE_USER:
+      //return action.freshGuestCart
       return {}
     default:
       return state
