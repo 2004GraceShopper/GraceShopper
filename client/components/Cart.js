@@ -182,7 +182,7 @@ const mapState = state => {
   return {
     cart: state.cart,
     usersCart: state.usersCart,
-    isLoggedIn: !!state.user.id,
+    isLoggedIn: !!state.user.id
     // product: state.singleProduct // This.props.product is never used?
   }
 }
@@ -195,9 +195,10 @@ const mapDispatch = dispatch => {
       dispatch(decreaseQuant(cartId, productId)),
     deleteItems: (itemId, cartId) => {
       return dispatch(removeFromCart(itemId, cartId))
+    }
   }
 }
-   
+
 export default connect(mapState, mapDispatch)(Cart)
 
 Cart.propTypes = {
