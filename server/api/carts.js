@@ -82,7 +82,7 @@ router.put('/edit/', async (req, res, next) => {
 
     cartToUpdate.totalQuantity = cartToUpdate.totalQuantity + 1
     cartToUpdate.totalPrice = cartToUpdate.totalPrice + gamePrice
-    cartToUpdate.save()
+    await cartToUpdate.save()
     //find the cart associated with the guest by checking cartId
     cartToSendBack = await Cart.findByPk(cartId, {
       include: [
