@@ -115,7 +115,7 @@ router.delete('/:cartId/:productId', async (req, res, next) => {
     theCart.totalQuantity = theCart.totalQuantity - itemToDelete.quantity
     theCart.totalPrice =
       theCart.totalPrice - itemToDelete.quantity * product.price
-    theCart.save()
+    await theCart.save()
 
     const updatedCart = await Cart.findOne({
       where: {
