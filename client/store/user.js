@@ -36,10 +36,11 @@ export const me = () => async dispatch => {
   }
 }
 
-export const auth = (email, password, method) => async dispatch => {
+// Changed this so it creates a whole user, not just email/password
+export const auth = (user, method) => async dispatch => {
   let res
   try {
-    res = await axios.post(`/auth/${method}`, {email, password})
+    res = await axios.post(`/auth/${method}`, user)
   } catch (authError) {
     return dispatch(getUser({error: authError}))
   }
