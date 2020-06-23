@@ -34,7 +34,7 @@ class SingleProduct extends React.Component {
         : this.props.usersCart[0].id
     const handleClick = () => {
       this.props.addToCartFunc(product.id, this.state.quantity, usersCartId)
-      this.setState({quantity: 0})
+      this.setState({quantity: 1})
     }
 
     return (
