@@ -74,6 +74,8 @@ class Cart extends React.Component {
       this.setState()
     }
 
+
+
     return (
       <div className="container">
         <div id="cart">
@@ -137,7 +139,11 @@ class Cart extends React.Component {
                 </div>
 
                 <div className="cart_buttons">
-                  <button type="submit" onClick={this.handleCheckout}>
+                  <button
+                    disabled={!this.props.usersCart.totalQuantity}
+                    type="submit"
+                    onClick={this.handleCheckout}
+                  >
                     Checkout
                   </button>
                   <button type="submit" onClick={this.handleContinueShopping}>
