@@ -4,22 +4,29 @@ import {GET_USER, REMOVE_USER} from './user'
 // Action types:
 const ADD_TO_CART = 'ADD_TO_CART'
 const UPDATE_CART = 'UPDATE_CART'
+const DELETE_FROM_CART = 'DELETE_FROM_CART'
 
-// Action creator:
+// Action creators:
 const addToCart = fullerCart => {
   return {
     type: ADD_TO_CART,
     fullerCart
   }
 }
-
 export const updateCart = cart => {
   return {
     type: UPDATE_CART,
     cart
   }
 }
-// Thunk creator:
+const deleteFromCart = updatedCart => {
+  return {
+    type: DELETE_FROM_CART,
+    updatedCart
+  }
+}
+
+// Thunk creators:
 export const addToCartInServer = (productId, quantity, cartId) => {
   return async dispatch => {
     console.log('AddToCart thunk is running! CartId: ', cartId)
@@ -65,6 +72,24 @@ export const decreaseQuant = (cartId, productId) => {
     }
   }
 }
+
+export const removeFromCart = (itemId, cartId) => {
+  return async dispatch => {
+    console.log('removeFromCart thunk is runnning', cartId, itemId)
+    try {
+      // how do I access item(x)'s Item table fields?
+      // item = item id and that's it
+      // i need cartId and productId for this request to work
+      const {data} = await axios.delete(`/api/cart/${cartId}/${itemId}`)
+
+      dispatch(deleteFromCart(data))
+    } catch (error) {
+      console.log('Error removing item from cart', error)
+    }
+  }
+}
+
+
 // Reducer:
 export default function cartReducer(state = {}, action) {
   switch (action.type) {
@@ -76,6 +101,8 @@ export default function cartReducer(state = {}, action) {
       return action.fullerCart
     case UPDATE_CART:
       return action.cart
+    case DELETE_FROM_CART:
+      return action.updatedCart
     case REMOVE_USER:
       return {}
     default:

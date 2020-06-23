@@ -1,4 +1,6 @@
 const router = require('express').Router()
+const jwt = require('jsonwebtoken')
+const verifyToken = require('../api/verifyToken')
 const User = require('../db/models/user')
 const Cart = require('../db/models/cart')
 const Product = require('../db/models/product')
@@ -41,10 +43,11 @@ const findOrGetTheCart = async (user, sessionId) => {
   return cartResults[0]
 }
 
-const generateResObj = (user, cart) => {
+const generateResObj = (user, cart, token) => {
   return {
     user: user,
-    userCart: cart
+    userCart: cart,
+    token: token
   }
 }
 
@@ -60,9 +63,17 @@ router.post('/login', async (req, res, next) => {
       res.status(401).send('Wrong username and/or password')
     } else {
       let theCart = await findOrGetTheCart(user, req.session.id)
+      //trying out the token- this does not work right now
+      let token
+      if (user.type === 'admin') {
+        token = jwt.sign({user: user}, 'secretkey')
+        req.session.token = token
+        console.log('this is req.session', req.session)
+      }
       req.login(
         user,
-        err => (err ? next(err) : res.json(generateResObj(user, theCart)))
+        err =>
+          err ? next(err) : res.json(generateResObj(user, theCart, token))
       )
     }
   } catch (err) {
@@ -92,15 +103,21 @@ router.post('/logout', (req, res) => {
   res.redirect('/')
 })
 
-router.get('/me', async (req, res) => {
+//protected route - successful!
+router.get('/me', verifyToken, async (req, res) => {
   console.log('**GET auth/me**')
   console.log('in routes, req.session.id: ', req.session.id)
   console.log('in routes, req.sessionID: ', req.sessionID)
   console.log('req.user: ', req.user)
-  // Also setting cart:
-  let theCart = await findOrGetTheCart(req.user, req.session.id)
 
-  res.json(generateResObj(req.user, theCart))
+  const decoded = jwt.verify(req.token, 'secretkey')
+  if (!decoded) {
+    res.send(403)
+  } else {
+    // Also setting cart:
+    let theCart = await findOrGetTheCart(req.user, req.session.id)
+    res.json(generateResObj(req.user, theCart))
+  }
 })
 
 router.use('/google', require('./google'))

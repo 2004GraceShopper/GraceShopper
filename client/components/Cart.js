@@ -1,8 +1,6 @@
 /* eslint-disable complexity */
 import React from 'react'
 import {connect} from 'react-redux'
-//import {fetchCart} from '../store/cart'
-//import {fetchItems} from '../store/usersCart'
 import {increaseQuant, decreaseQuant} from '../store/usersCart'
 import {Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types'
@@ -66,6 +64,14 @@ class Cart extends React.Component {
       cartItems = this.props.usersCart.products
     }
 
+    // let cartId = this.props.UsersCart.id
+    const handleDelete = (productId, cartId) => {
+      event.preventDefault()
+      console.log('handleDelete ran')
+      this.props.deleteItems(productId, cartId)
+      // this.setState()
+    }
+
     return (
       <div className="container">
         <div id="cart">
@@ -111,6 +117,19 @@ class Cart extends React.Component {
                                 Total Price: $
                                 {product.item.quantity * product.price / 100}
                               </h3>
+                              <button
+                                type="submit"
+                                onClick={() =>
+                                  handleDelete(
+                                    product.id,
+                                    this.props.usersCart.id
+                                  )
+                                }
+                              >
+                                Remove Item{product.item.quantity > 1
+                                  ? 's'
+                                  : ''}
+                              </button>
                               <div />
                             </div>
                           </div>
@@ -138,7 +157,11 @@ class Cart extends React.Component {
                 </div>
 
                 <div className="cart_buttons">
-                  <button type="submit" onClick={this.handleCheckout}>
+                  <button
+                    disabled={!this.props.usersCart.totalQuantity}
+                    type="submit"
+                    onClick={this.handleCheckout}
+                  >
                     Checkout
                   </button>
                   <button type="submit" onClick={this.handleContinueShopping}>
@@ -160,7 +183,7 @@ const mapState = state => {
     cart: state.cart,
     usersCart: state.usersCart,
     isLoggedIn: !!state.user.id,
-    product: state.singleProduct
+    // product: state.singleProduct // This.props.product is never used?
   }
 }
 
@@ -169,10 +192,12 @@ const mapDispatch = dispatch => {
     increaseQuant: (cartId, productId) =>
       dispatch(increaseQuant(cartId, productId)),
     decreaseQuant: (cartId, productId) =>
-      dispatch(decreaseQuant(cartId, productId))
+      dispatch(decreaseQuant(cartId, productId)),
+    deleteItems: (itemId, cartId) => {
+      return dispatch(removeFromCart(itemId, cartId))
   }
 }
-
+   
 export default connect(mapState, mapDispatch)(Cart)
 
 Cart.propTypes = {
