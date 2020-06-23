@@ -22,3 +22,39 @@ router.get('/:id', async (req, res, next) => {
     next(error)
   }
 })
+
+router.post('/', async (req, res, next) => {
+  try {
+    const newProduct = await Product.create(req.body)
+    res.json(newProduct)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/:id', async (req, res, next) => {
+  try {
+    const [numberOfAffectedRows, updatedProduct] = await Product.update(
+      req.body,
+      {
+        where: {id: req.params.id},
+        returning: true,
+        plain: true
+      }
+    )
+    res.json(updatedProduct)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const deletedProduct = await Product.destroy({
+      where: {id: req.params.id}
+    })
+    !deletedProduct ? res.sendStatus(404) : res.sendStatus(204)
+  } catch (error) {
+    next(error)
+  }
+})
