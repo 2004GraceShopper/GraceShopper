@@ -8,7 +8,7 @@ class SingleProduct extends React.Component {
   constructor() {
     super()
     this.state = {
-      quantity: 0
+      quantity: 1
     }
     this.handleChange = this.handleChange.bind(this)
   }
@@ -18,7 +18,7 @@ class SingleProduct extends React.Component {
   }
 
   handleChange(event) {
-    if (event.target.value > -1) {
+    if (event.target.value > 0) {
       this.setState({
         quantity: event.target.value
       })
@@ -34,7 +34,7 @@ class SingleProduct extends React.Component {
         : this.props.usersCart[0].id
     const handleClick = () => {
       this.props.addToCartFunc(product.id, this.state.quantity, usersCartId)
-      this.setState({quantity: 0})
+      this.setState({quantity: 1})
     }
 
     return (

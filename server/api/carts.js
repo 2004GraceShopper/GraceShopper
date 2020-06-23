@@ -8,7 +8,7 @@ module.exports = router
 // For adding a Product to a Cart through item.
 // Create the Item by using userInstance.addCart(cartInstance)
 // Then access the item directly and assign its quantity.
-//test for protected route! - successful!
+// Test for protected route! - successful!
 router.put(
   `/add/:productId/:quantity/:cartId`,
   verifyToken,
@@ -74,3 +74,71 @@ router.put(
     }
   }
 )
+
+
+// Delete from cart:
+// I need productId and cartId
+router.delete('/:cartId/:productId', async (req, res, next) => {
+  try {
+    // This deletes the associated item in the Item table, then separately updates the Cart instance.
+    // If the cart instance is not updated, on the front end the items won't removed from the cart.
+    const cartIdInt = parseInt(req.params.cartId)
+    const theCart = await Cart.findOne({
+      where: {
+        id: cartIdInt
+      },
+      include: [
+        {
+          model: Product,
+          as: Item,
+          require: true
+        }
+      ]
+    })
+    const itemToDelete = await Item.findOne({
+      where: {
+        productId: req.params.productId,
+        cartId: req.params.cartId
+      }
+    })
+    const product = await Product.findOne({
+      where: {
+        id: req.params.productId
+      }
+    })
+    const productIdInt = parseInt(req.params.productId)
+    
+    // Delete the item:
+    await Item.destroy({
+      where: {
+        productId: req.params.productId,
+        cartId: req.params.cartId
+      }
+    })
+    
+    // Update the cart:
+    theCart.items = theCart.items.filter(item => item !== productIdInt)
+    theCart.totalQuantity = theCart.totalQuantity - itemToDelete.quantity
+    theCart.totalPrice =
+      theCart.totalPrice - itemToDelete.quantity * product.price
+    await theCart.save()
+
+    // Return the updated eager-loaded cart:
+    const updatedCart = await Cart.findOne({
+      where: {
+        id: cartIdInt
+      },
+      include: [
+        {
+          model: Product,
+          as: Item,
+          require: true
+        }
+      ]
+    })
+    res.json(updatedCart)
+  } catch (error) {
+    console.log('Error deleting item from cart', error)
+    next(error)
+  }
+})
