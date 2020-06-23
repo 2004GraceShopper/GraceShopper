@@ -47,3 +47,14 @@ router.put('/:id', async (req, res, next) => {
     next(error)
   }
 })
+
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const deletedProduct = await Product.destroy({
+      where: {id: req.params.id}
+    })
+    !deletedProduct ? res.sendStatus(404) : res.sendStatus(204)
+  } catch (error) {
+    next(error)
+  }
+})
