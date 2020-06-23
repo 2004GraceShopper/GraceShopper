@@ -66,10 +66,11 @@ class Cart extends React.Component {
       cartItems = this.props.usersCart.products
     }
 
-    const handleDelete = product => {
+    // let cartId = this.props.UsersCart.id
+    const handleDelete = (productId, cartId) => {
       event.preventDefault()
       console.log('handleDelete ran')
-      this.props.deleteItems(product.id)
+      this.props.deleteItems(productId, cartId)
       this.setState()
     }
 
@@ -99,7 +100,12 @@ class Cart extends React.Component {
                               </h3>
                               <button
                                 type="submit"
-                                onClick={() => handleDelete(product)}
+                                onClick={() =>
+                                  handleDelete(
+                                    product.id,
+                                    this.props.usersCart.id
+                                  )
+                                }
                               >
                                 Remove Item{product.item.quantity > 1
                                   ? 's'
@@ -158,8 +164,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    deleteItems: item => {
-      return dispatch(removeFromCart(item))
+    deleteItems: (itemId, cartId) => {
+      return dispatch(removeFromCart(itemId, cartId))
     }
   }
 }

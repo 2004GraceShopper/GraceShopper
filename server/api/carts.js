@@ -7,6 +7,8 @@ module.exports = router
 // Create the Item by using userInstance.addCart(cartInstance)
 // Then access the item directly and assign its quantity.
 router.put(`/add/:productId/:quantity/:cartId`, async (req, res, next) => {
+  //req.body????--> security threat!^^^
+
   console.log('**PUT api/carts/:add/:productId/:quantity/:cartId**')
   try {
     const theCart = await Cart.findByPk(req.params.cartId)
@@ -67,32 +69,69 @@ router.delete('/:cartId/:productId', async (req, res, next) => {
   try {
     //this deleted the associated item in the Item table, but not in the cart items object in the db
     //on the front end the items are removed from the cart
-    const deletedItem = await Item.destroy({
+    const cartIdInt = parseInt(req.params.cartId)
+
+    const theCart = await Cart.findOne({
       where: {
-        productId: req.params.productId,
-        cartId: req.params.cartId
+        id: cartIdInt
       },
-      //works the same regardless of:
-      //include: Cart //goal : delete item from cart's items array
       include: [
         {
-          model: Cart
+          model: Product,
+          as: Item,
+          require: true
         }
       ]
     })
 
-    // if (theCart.items.indexOf(productIdInt) === -1) {
-    //   let moreItemsArray = [...theCart.items, productIdInt] // FYI pushing to theCart.items array does change it, but Sequelize doesn't recognize the change when saving.
-    //   theCart.items = moreItemsArray
-    // }
-    // theCart.totalQuantity += quantityInt
-    // theCart.totalPrice += quantityInt * theProduct.price
-    // await theCart.save()
+    const itemToDelete = await Item.findOne({
+      where: {
+        productId: req.params.productId,
+        cartId: req.params.cartId
+      }
+    })
 
-    //magic methods
+    await Item.destroy({
+      where: {
+        productId: req.params.productId,
+        cartId: req.params.cartId
+      }
+    })
 
-    console.log('deletedItem:', deletedItem)
-    res.json(deletedItem)
+    const product = await Product.findOne({
+      where: {
+        id: req.params.productId
+      }
+    })
+
+    //console.log('to be deleted:', itemToDelete)
+    console.log('quantity', itemToDelete.quantity)
+    console.log(typeof itemToDelete.quantity)
+    console.log('price', product.price)
+    console.log('r u working', theCart.totalQuantity, theCart.totalPrice)
+
+    const productIdInt = parseInt(req.params.productId)
+    theCart.items = theCart.items.filter(item => item !== productIdInt)
+    theCart.totalQuantity = theCart.totalQuantity - itemToDelete.quantity
+    theCart.totalPrice =
+      theCart.totalPrice - itemToDelete.quantity * product.price
+    theCart.save()
+
+    const updatedCart = await Cart.findOne({
+      where: {
+        id: cartIdInt
+      },
+      include: [
+        {
+          model: Product,
+          as: Item,
+          require: true
+        }
+      ]
+    })
+
+    console.log('updatedCart:', updatedCart)
+    res.json(updatedCart)
   } catch (error) {
     console.log('Error deleting item from cart', error)
     next(error)

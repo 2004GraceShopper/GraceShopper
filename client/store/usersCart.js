@@ -13,10 +13,10 @@ const addToCart = fullerCart => {
   }
 }
 
-const deleteFromCart = item => {
+const deleteFromCart = updatedCart => {
   return {
     type: DELETE_FROM_CART,
-    item
+    updatedCart
   }
 }
 
@@ -35,17 +35,14 @@ export const addToCartInServer = (productId, quantity, cartId) => {
   }
 }
 
-export const removeFromCart = item => {
+export const removeFromCart = (itemId, cartId) => {
   return async dispatch => {
-    console.log('removeFromCart thunk is runnning,', item)
+    console.log('removeFromCart thunk is runnning', cartId, itemId)
     try {
       // how do I access item(x)'s Item table fields?
       // item = item id and that's it
       // i need cartId and productId for this request to work
-      const {data} = await axios.delete(
-        `/api/cart/${item.cartId}/${item.productId}`,
-        item
-      )
+      const {data} = await axios.delete(`/api/cart/${cartId}/${itemId}`)
 
       dispatch(deleteFromCart(data))
     } catch (error) {
@@ -64,11 +61,7 @@ export default function cartReducer(state = {}, action) {
     case ADD_TO_CART:
       return action.fullerCart
     case DELETE_FROM_CART:
-      return {
-        ...state.usersCart.products.filter(
-          product => product.id !== action.item
-        )
-      }
+      return action.updatedCart
     //do i also need to filter for the state.usersCart.items array?
     case REMOVE_USER:
       return {}
