@@ -1,4 +1,6 @@
 const router = require('express').Router()
+const jwt = require('jsonwebtoken')
+const verifyToken = require('./verifyToken')
 const {User} = require('../db/models')
 const {Cart} = require('../db/models')
 module.exports = router
@@ -37,11 +39,17 @@ router.get('/:id', async (req, res, next) => {
 })
 
 // User creation.
-router.post('/', async (req, res, next) => {
+//route protection- successful!
+router.post('/', verifyToken, async (req, res, next) => {
   console.log('**POST api/users**')
   try {
-    const user = await User.create(req.body)
-    res.status(201).send(user)
+    const decoded = jwt.verify(req.token, 'secretkey')
+    if (!decoded) {
+      res.send(403)
+    } else {
+      const user = await User.create(req.body)
+      res.status(201).send(user)
+    }
   } catch (error) {
     next(error)
   }
