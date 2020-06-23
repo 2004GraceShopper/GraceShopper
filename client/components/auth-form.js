@@ -1,13 +1,19 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+import {me} from '../store'
 
 /**
  * COMPONENT
  */
+
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
+
+  useEffect(() => {
+    props.loadInitialData()
+  })
 
   return (
     <div>
@@ -65,6 +71,14 @@ const mapDispatch = dispatch => {
       const email = evt.target.email.value
       const password = evt.target.password.value
       dispatch(auth(email, password, formName))
+    },
+    async loadInitialData() {
+      console.log('**loadInitialData**')
+      try {
+        await dispatch(me())
+      } catch (error) {
+        console.error(error)
+      }
     }
   }
 }
