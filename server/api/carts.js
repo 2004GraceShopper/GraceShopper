@@ -60,3 +60,42 @@ router.put(`/add/:productId/:quantity/:cartId`, async (req, res, next) => {
     next(error)
   }
 })
+
+router.put('/edit/', async (req, res, next) => {
+  let cartToSendBack
+  const {productId, cartId, edit} = req.body
+  console.log(req.body, productId, cartId, edit)
+  try {
+    //Find the item associated with the cart
+    const itemToUpdate = await Item.findOne({
+      where: {productId: productId, cartId: cartId}
+    })
+    //increase or decrease that item's quanitiy
+    itemToUpdate.quantity = itemToUpdate.quantity + 1
+
+    itemToUpdate.save()
+    console.log(itemToUpdate, 'ITEM')
+    //find the price of the game and then update the totalquantity and totalprice for that cart
+    const product = await Product.findByPk(productId)
+    const gamePrice = product.price
+    const cartToUpdate = await Cart.findByPk(cartId)
+
+    cartToUpdate.totalQuantity = cartToUpdate.totalQuantity + 1
+    cartToUpdate.totalPrice = cartToUpdate.totalPrice + gamePrice
+    cartToUpdate.save()
+    //find the cart associated with the guest by checking cartId
+    cartToSendBack = await Cart.findByPk(cartId, {
+      include: [
+        {
+          model: Product,
+          as: Item,
+          required: true
+        }
+      ]
+    })
+    // return the updated cart
+    res.json(cartToSendBack)
+  } catch (error) {
+    next(error)
+  }
+})

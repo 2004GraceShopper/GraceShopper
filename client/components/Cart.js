@@ -2,7 +2,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchCart} from '../store/cart'
-import {fetchItems} from '../store/usersCart'
+//import {fetchItems} from '../store/usersCart'
+import {updateQuant} from '../store/usersCart'
 import {Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
@@ -53,9 +54,8 @@ class Cart extends React.Component {
     const redirectingCheckout = this.state.redirectingCheckout
     if (redirectingCheckout && !isLoggedIn) {
       return <Redirect to="/cart/guest_checkout" />
-    
     }
-       if (redirectingCheckout && isLoggedIn) {
+    if (redirectingCheckout && isLoggedIn) {
       return <Redirect to="/" />
     }
 
@@ -65,7 +65,6 @@ class Cart extends React.Component {
       console.log('set to eagerItems')
       cartItems = this.props.usersCart.products
     }
-     
 
     return (
       <div className="container">
@@ -86,10 +85,32 @@ class Cart extends React.Component {
                             <div className="product_headers">
                               <h2 className="product_name">{product.name}</h2>
                               <h3>Quantity: {product.item.quantity}</h3>
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  this.props.increaseQuant(
+                                    this.props.usersCart.id,
+                                    product.id
+                                  )
+                                }
+                              >
+                                +
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  this.props.decreaseQuant(
+                                    this.props.usersCart.id,
+                                    product.id,
+                                    product.id
+                                  )
+                                }
+                              >
+                                -
+                              </button>
                               <h3>
-                                Total Price: ${product.item.quantity *
-                                  product.price /
-                                  100}
+                                Total Price: $
+                                {product.item.quantity * product.price / 100}
                               </h3>
                               <div />
                             </div>
@@ -110,7 +131,8 @@ class Cart extends React.Component {
                   <div>Subtotal: ${this.props.usersCart.totalPrice / 100}</div>
                   <div>Shipping: FREE </div>
                   <div>
-                    Total: ${this.props.usersCart
+                    Total: $
+                    {this.props.usersCart
                       ? this.props.usersCart.totalPrice / 100
                       : 'nothing yet'}
                   </div>
@@ -139,10 +161,20 @@ const mapState = state => {
     cart: state.cart,
     usersCart: state.usersCart,
     isLoggedIn: !!state.user.id,
+    product: state.singleProduct
   }
 }
 
-export default connect(mapState)(Cart)
+const mapDispatch = dispatch => {
+  return {
+    increaseQuant: (cartId, productId, increase) =>
+      dispatch(updateQuant(cartId, productId, increase)),
+    decreaseQuant: (cartId, productId, decrease) =>
+      dispatch(updateQuant(cartId, productId, decrease))
+  }
+}
+
+export default connect(mapState, mapDispatch)(Cart)
 
 Cart.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired
