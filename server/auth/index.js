@@ -1,4 +1,6 @@
 const router = require('express').Router()
+const jwt = require('jsonwebtoken')
+const verifyToken = require('../api/verifyToken')
 const User = require('../db/models/user')
 const Cart = require('../db/models/cart')
 const Product = require('../db/models/product')
@@ -92,15 +94,21 @@ router.post('/logout', (req, res) => {
   res.redirect('/')
 })
 
-router.get('/me', async (req, res) => {
+//protected route - successful!
+router.get('/me', verifyToken, async (req, res) => {
   console.log('**GET auth/me**')
   console.log('in routes, req.session.id: ', req.session.id)
   console.log('in routes, req.sessionID: ', req.sessionID)
   console.log('req.user: ', req.user)
-  // Also setting cart:
-  let theCart = await findOrGetTheCart(req.user, req.session.id)
 
-  res.json(generateResObj(req.user, theCart))
+  const decoded = jwt.verify(req.token, 'secretkey')
+  if (!decoded) {
+    res.send(403)
+  } else {
+    // Also setting cart:
+    let theCart = await findOrGetTheCart(req.user, req.session.id)
+    res.json(generateResObj(req.user, theCart))
+  }
 })
 
 router.use('/google', require('./google'))
