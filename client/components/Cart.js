@@ -1,9 +1,9 @@
 /* eslint-disable complexity */
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchCart} from '../store/cart'
+//import {fetchCart} from '../store/cart'
 //import {fetchItems} from '../store/usersCart'
-import {updateQuant} from '../store/usersCart'
+import {increaseQuant, decreaseQuant} from '../store/usersCart'
 import {Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
@@ -101,7 +101,6 @@ class Cart extends React.Component {
                                 onClick={() =>
                                   this.props.decreaseQuant(
                                     this.props.usersCart.id,
-                                    product.id,
                                     product.id
                                   )
                                 }
@@ -167,10 +166,10 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    increaseQuant: (cartId, productId, increase) =>
-      dispatch(updateQuant(cartId, productId, increase)),
-    decreaseQuant: (cartId, productId, decrease) =>
-      dispatch(updateQuant(cartId, productId, decrease))
+    increaseQuant: (cartId, productId) =>
+      dispatch(increaseQuant(cartId, productId)),
+    decreaseQuant: (cartId, productId) =>
+      dispatch(decreaseQuant(cartId, productId))
   }
 }
 

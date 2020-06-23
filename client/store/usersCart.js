@@ -35,14 +35,28 @@ export const addToCartInServer = (productId, quantity, cartId) => {
   }
 }
 
-export const updateQuant = (cartId, productId, edit) => {
+export const increaseQuant = (cartId, productId) => {
   return async dispatch => {
     try {
-      console.log('the product info', productId, cartId, edit)
-      const {data} = await axios.put(`/api/cart/edit/`, {
+      console.log('the product info', productId, cartId)
+      const {data} = await axios.put(`/api/cart/edit/increase`, {
         cartId,
-        productId,
-        edit
+        productId
+      })
+      console.log(data)
+      dispatch(updateCart(data))
+    } catch (error) {
+      console.log('Error editing item quanitiy in cart', error)
+    }
+  }
+}
+export const decreaseQuant = (cartId, productId) => {
+  return async dispatch => {
+    try {
+      console.log('the product info', productId, cartId)
+      const {data} = await axios.put(`/api/cart/edit/decrease`, {
+        cartId,
+        productId
       })
       console.log(data)
       dispatch(updateCart(data))
