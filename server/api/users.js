@@ -32,7 +32,7 @@ router.get('/', verifyToken, async (req, res, next) => {
 router.get('/:id', verifyToken, async (req, res, next) => {
   console.log('**GET api/users/:id**')
   try {
-    const decoded = jwt.verify(req.token, 'secrenkey')
+    const decoded = jwt.verify(req.token, 'secretkey')
     if (!decoded) {
       res.send(403)
     } else {
