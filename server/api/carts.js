@@ -149,33 +149,26 @@ router.put('/edit/:method', async (req, res, next) => {
     const itemToUpdate = await Item.findOne({
       where: {productId: productId, cartId: cartId}
     })
+    const product = await Product.findByPk(productId)
+    const gamePrice = product.price
+    const cartToUpdate = await Cart.findByPk(cartId)
     //increase or decrease that item's quanitiy
+
+    if (method === 'decrease' && itemToUpdate.quantity > 1) {
+      itemToUpdate.quantity = itemToUpdate.quantity - 1
+      cartToUpdate.totalQuantity = cartToUpdate.totalQuantity - 1
+      cartToUpdate.totalPrice = cartToUpdate.totalPrice - gamePrice
+    }
     if (method === 'increase') {
       itemToUpdate.quantity = itemToUpdate.quantity + 1
-    } else {
-      itemToUpdate.quantity = itemToUpdate.quantity - 1
-    }
-    if (method === 'increase') {
-      console.log('method is increase')
-    }
-    if (method === 'decrease') {
-      console.log('method is decrease')
+      cartToUpdate.totalQuantity = cartToUpdate.totalQuantity + 1
+      cartToUpdate.totalPrice = cartToUpdate.totalPrice + gamePrice
     }
 
     await itemToUpdate.save()
 
     //find the price of the game and then update the totalquantity and totalprice for that cart
-    const product = await Product.findByPk(productId)
-    const gamePrice = product.price
-    const cartToUpdate = await Cart.findByPk(cartId)
 
-    if (method === 'increase') {
-      cartToUpdate.totalQuantity = cartToUpdate.totalQuantity + 1
-      cartToUpdate.totalPrice = cartToUpdate.totalPrice + gamePrice
-    } else {
-      cartToUpdate.totalQuantity = cartToUpdate.totalQuantity - 1
-      cartToUpdate.totalPrice = cartToUpdate.totalPrice - gamePrice
-    }
     await cartToUpdate.save()
 
     //find the cart associated with the guest by checking cartId
