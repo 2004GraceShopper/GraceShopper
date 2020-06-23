@@ -1,8 +1,7 @@
 /* eslint-disable complexity */
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchCart} from '../store/cart'
-import {fetchItems, removeFromCart} from '../store/usersCart'
+import {increaseQuant, decreaseQuant} from '../store/usersCart'
 import {Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
@@ -16,7 +15,6 @@ class Cart extends React.Component {
     }
     this.handleContinueShopping = this.handleContinueShopping.bind(this)
     this.handleCheckout = this.handleCheckout.bind(this)
-    // this.handleDelete =this.handleDelete.bind(this)
   }
 
   componentDidMount() {
@@ -71,10 +69,8 @@ class Cart extends React.Component {
       event.preventDefault()
       console.log('handleDelete ran')
       this.props.deleteItems(productId, cartId)
-      this.setState()
+      // this.setState()
     }
-
-
 
     return (
       <div className="container">
@@ -95,10 +91,31 @@ class Cart extends React.Component {
                             <div className="product_headers">
                               <h2 className="product_name">{product.name}</h2>
                               <h3>Quantity: {product.item.quantity}</h3>
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  this.props.increaseQuant(
+                                    this.props.usersCart.id,
+                                    product.id
+                                  )
+                                }
+                              >
+                                +
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  this.props.decreaseQuant(
+                                    this.props.usersCart.id,
+                                    product.id
+                                  )
+                                }
+                              >
+                                -
+                              </button>
                               <h3>
-                                Total Price: ${product.item.quantity *
-                                  product.price /
-                                  100}
+                                Total Price: $
+                                {product.item.quantity * product.price / 100}
                               </h3>
                               <button
                                 type="submit"
@@ -132,7 +149,8 @@ class Cart extends React.Component {
                   <div>Subtotal: ${this.props.usersCart.totalPrice / 100}</div>
                   <div>Shipping: FREE </div>
                   <div>
-                    Total: ${this.props.usersCart
+                    Total: $
+                    {this.props.usersCart
                       ? this.props.usersCart.totalPrice / 100
                       : 'nothing yet'}
                   </div>
@@ -164,18 +182,22 @@ const mapState = state => {
   return {
     cart: state.cart,
     usersCart: state.usersCart,
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    // product: state.singleProduct // This.props.product is never used?
   }
 }
 
 const mapDispatch = dispatch => {
   return {
+    increaseQuant: (cartId, productId) =>
+      dispatch(increaseQuant(cartId, productId)),
+    decreaseQuant: (cartId, productId) =>
+      dispatch(decreaseQuant(cartId, productId)),
     deleteItems: (itemId, cartId) => {
       return dispatch(removeFromCart(itemId, cartId))
-    }
   }
 }
-
+   
 export default connect(mapState, mapDispatch)(Cart)
 
 Cart.propTypes = {

@@ -142,3 +142,61 @@ router.delete('/:cartId/:productId', async (req, res, next) => {
     next(error)
   }
 })
+
+router.put('/edit/:method', async (req, res, next) => {
+  let cartToSendBack
+  const {productId, cartId} = req.body
+  const {method} = req.params
+  console.log(req.body, method)
+
+  try {
+    //Find the item associated with the cart
+    const itemToUpdate = await Item.findOne({
+      where: {productId: productId, cartId: cartId}
+    })
+    //increase or decrease that item's quanitiy
+    if (method === 'increase') {
+      itemToUpdate.quantity = itemToUpdate.quantity + 1
+    } else {
+      itemToUpdate.quantity = itemToUpdate.quantity - 1
+    }
+    if (method === 'increase') {
+      console.log('method is increase')
+    }
+    if (method === 'decrease') {
+      console.log('method is decrease')
+    }
+
+    await itemToUpdate.save()
+
+    //find the price of the game and then update the totalquantity and totalprice for that cart
+    const product = await Product.findByPk(productId)
+    const gamePrice = product.price
+    const cartToUpdate = await Cart.findByPk(cartId)
+
+    if (method === 'increase') {
+      cartToUpdate.totalQuantity = cartToUpdate.totalQuantity + 1
+      cartToUpdate.totalPrice = cartToUpdate.totalPrice + gamePrice
+    } else {
+      cartToUpdate.totalQuantity = cartToUpdate.totalQuantity - 1
+      cartToUpdate.totalPrice = cartToUpdate.totalPrice - gamePrice
+    }
+    await cartToUpdate.save()
+
+    //find the cart associated with the guest by checking cartId
+    cartToSendBack = await Cart.findByPk(cartId, {
+      include: [
+        {
+          model: Product,
+          as: Item,
+          required: true
+        }
+      ]
+    })
+
+    // return the updated cart
+    res.json(cartToSendBack)
+  } catch (error) {
+    next(error)
+  }
+})
