@@ -7,19 +7,22 @@ export class GuestCheckoutForm extends React.Component {
   constructor() {
     super()
     this.state = {
-      emailAddress: '',
+      email: '',
       billingAddress: '',
       shippingAddress: '',
       creditCardNum: '',
-      redirectToConfirmation: false
+      redirectToConfirmation: false,
+      notFilledOut: true
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.amIFilledOut = this.amIFilledOut.bind(this)
   }
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     })
+    this.amIFilledOut()
   }
   handleSubmit(event) {
     event.preventDefault()
@@ -28,6 +31,25 @@ export class GuestCheckoutForm extends React.Component {
       redirectToConfirmation: !prevState.redirectToConfirmation
     }))
   }
+  amIFilledOut() {
+    // If all of these things are filled out, then notFilledOut is false!
+    console.log('amIfilledOut ran!')
+    console.log('this.state.email.length: ', this.state.email.length)
+    if (
+      this.state.email.length > 0 &&
+      this.state.billingAddress.length > 0 &&
+      this.state.shippingAddress.length > 0 &&
+      this.state.creditCardNum.length > 0
+    ) {
+      console.log('all the things SHOULD be filled out')
+      this.setState({notFilledOut: false})
+    } else {
+      // If all of these things are NOT filled out, then notFilledOut is true!
+      console.log('not complete yet!')
+      this.setState({notFilledOut: true})
+    }
+  }
+
   render() {
     const redirectToConfirmation = this.state.redirectToConfirmation
     if (redirectToConfirmation) return <Redirect to="/" />
@@ -73,7 +95,11 @@ export class GuestCheckoutForm extends React.Component {
               />
             </label>
             <div className="submit_button_specs">
-              <button type="submit" className="submit">
+              <button
+                type="submit"
+                className="submit"
+                disabled={this.state.notFilledOut}
+              >
                 Submit
               </button>
               <div> to review your order</div>
