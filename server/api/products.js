@@ -31,3 +31,19 @@ router.post('/', async (req, res, next) => {
     next(error)
   }
 })
+
+router.put('/:id', async (req, res, next) => {
+  try {
+    const [numberOfAffectedRows, updatedProduct] = await Product.update(
+      req.body,
+      {
+        where: {id: req.params.id},
+        returning: true,
+        plain: true
+      }
+    )
+    res.json(updatedProduct)
+  } catch (error) {
+    next(error)
+  }
+})
