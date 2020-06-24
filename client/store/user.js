@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import {fetchHistory} from './history'
 
 /**
  * ACTION TYPES
@@ -31,6 +32,14 @@ export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
     dispatch(getUser(res.data || defaultUser))
+    try {
+      if (res.data.user.id) {
+        console.log('this better be a userId: ', res.data.user.id) // 1
+        dispatch(fetchHistory(res.data.user.id))
+      }
+    } catch (error) {
+      console.log('Error inside second try-catch, which gets product history.')
+    }
   } catch (err) {
     console.error(err)
   }

@@ -8,11 +8,18 @@ import guest from './guest'
 import products from './allProducts'
 import users from './allUsers'
 import singleProduct from './singleProduct'
-// Consider merging cart stores or renaming cart
-import cart from './cart'
 import usersCart from './usersCart'
+import history from './history'
 
-const reducer = combineReducers({user, users, guest, products, singleProduct, usersCart, cart})
+const reducer = combineReducers({
+  user,
+  users,
+  guest,
+  products,
+  singleProduct,
+  usersCart,
+  history
+})
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )

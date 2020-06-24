@@ -7,7 +7,7 @@ module.exports = router
 
 const findOrGetTheCart = async (user, sessionId) => {
   let cartResults
-  console.log('req.user in findOrGet: ', user)
+  //console.log('req.user in findOrGet: ', user)
   if (user === undefined) {
     cartResults = await Cart.findOrCreate({
       where: {

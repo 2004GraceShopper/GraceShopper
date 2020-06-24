@@ -3,34 +3,40 @@ import {connect} from 'react-redux'
 
 class OrderHistory extends React.Component {
   render() {
-    return (
-      <div className="container">
-        <div id="all_products">
-          <h1>Order History</h1>
-          <div className="allProducts">
-            {this.state.purchasedCarts.map(cart => (
-              <div key={cart.id} className="single_product">
-                <div>Order date: {cart.createdAt}</div>
-                <div>Order number: {cart.mySession + cart.totalPrice}</div>
-              </div>
-            ))}
+    if (this.props.purchasedCarts) {
+      return (
+        <div className="container">
+          <div>
+            <h1>Order History</h1>
+            <div>
+              {this.props.purchasedCarts.map(cart => (
+                <div key={cart.id}>
+                  <div>Order date: {cart.createdAt}</div>
+                  <div>Order number: {cart.totalPrice + cart.id}</div>
+                  <div>Items:</div>
+                  {cart.products.map(product => (
+                    <div>
+                      <div>Item Name: {product.name}</div>
+                      <div>Quantity: {product.item.quantity}</div>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    )
+      )
+    } else {
+      return <div>You have no product history!</div>
+    }
   }
 }
 
 const mapState = state => {
   return {
-    theUser: state.user
+    theUser: state.user,
+    purchasedCarts: state.history
   }
 }
 
-const mapDispatch = dispatch => {
-  return {
-    getProducts: () => dispatch(fetchProducts())
-  }
-}
-
-export default connect(mapState, mapDispatch)(AllProducts)
+export default connect(mapState)(OrderHistory)

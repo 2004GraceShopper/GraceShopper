@@ -1,10 +1,9 @@
-import React, {Component, useEffect} from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
   Login,
-  //Signup,
   SignUpForm,
   UserHome,
   AllProducts,
@@ -14,7 +13,8 @@ import {
   GuestHome,
   OrderReview,
   Signup,
-  Thanks
+  Thanks,
+  OrderHistory
 } from './components'
 import {me} from './store'
 import PathNotFound from './components/PathNotFound'
@@ -60,6 +60,7 @@ class Routes extends Component {
         />
         <Route exact path="/order_confirmation" component={OrderReview} />
         <Route exact path="/thanks" component={Thanks} />
+        <Route exact path="/order_history" component={OrderHistory} />
         <Route exact path="/oldsignup" component={Signup} />
 
         {/* Need to consider when :id is null (aka guest) */}
