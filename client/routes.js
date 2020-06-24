@@ -4,7 +4,6 @@ import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
   Login,
-  //Signup,
   SignUpForm,
   UserHome,
   AllProducts,
@@ -13,8 +12,10 @@ import {
   GuestCheckoutForm,
   GuestHome,
   OrderReview,
+  Thanks,
   Signup,
-  Thanks
+  TaggedGame
+
 } from './components'
 import {me} from './store'
 import PathNotFound from './components/PathNotFound'
@@ -61,6 +62,7 @@ class Routes extends Component {
         <Route exact path="/order_confirmation" component={OrderReview} />
         <Route exact path="/thanks" component={Thanks} />
         <Route exact path="/oldsignup" component={Signup} />
+        <Route exact path="/categories/:tag" component={TaggedGame} />
 
         {/* Need to consider when :id is null (aka guest) */}
         <Route exact path="/cart" component={Cart} />

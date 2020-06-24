@@ -27,7 +27,19 @@ const Product = db.define('product', {
     type: Sequelize.INTEGER,
     allowNull: false,
     defaultValue: 20
+  },
+  categories: {
+    type: Sequelize.ARRAY(Sequelize.STRING)
   }
 })
 
+Product.findByTag = categories => {
+  return Product.findAll({
+    where: {
+      categories: {
+        [Sequelize.Op.contains]: [categories]
+      }
+    }
+  })
+}
 module.exports = Product

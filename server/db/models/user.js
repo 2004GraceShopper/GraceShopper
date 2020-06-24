@@ -4,6 +4,10 @@ const db = require('../db')
 // const {validate} = require('../db')
 
 const User = db.define('user', {
+  type: {
+    type: Sequelize.ENUM('user', 'admin'),
+    defaultValue: 'user'
+  },
   email: {
     type: Sequelize.STRING,
     unique: true,
