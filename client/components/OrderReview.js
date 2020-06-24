@@ -59,7 +59,11 @@ class OrderReview extends React.Component {
                           <h3>Quantity: {product.item.quantity}</h3>
                           <h3>
                             Total Price: $
-                            {product.item.quantity * product.price / 100}
+                            {(
+                              product.item.quantity *
+                              product.price /
+                              100
+                            ).toFixed(2)}
                           </h3>
                           <div />
                         </div>
@@ -76,14 +80,16 @@ class OrderReview extends React.Component {
                   <div>
                     Total Number of Items: {this.props.usersCart.totalQuantity}
                   </div>
-                  <div>Subtotal: ${this.props.usersCart.totalPrice / 100}</div>
+                  <div>
+                    Subtotal: $({this.props.usersCart.totalPrice / 100}).toFixed(2)
+                  </div>
                   <div>Shipping: FREE </div>
                   <div> </div>
                   <div>
                     <h4>
                       Total: $
                       {this.props.usersCart
-                        ? this.props.usersCart.totalPrice / 100
+                        ? (this.props.usersCart.totalPrice / 100).toFixed(2)
                         : 'nothing yet'}
                     </h4>
                   </div>
