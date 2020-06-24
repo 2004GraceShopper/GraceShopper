@@ -115,7 +115,11 @@ class Cart extends React.Component {
                               </button>
                               <h3>
                                 Total Price: $
-                                {product.item.quantity * product.price / 100}
+                                {(
+                                  product.item.quantity *
+                                  product.price /
+                                  100
+                                ).toFixed(2)}
                               </h3>
                               <button
                                 type="submit"
@@ -146,12 +150,16 @@ class Cart extends React.Component {
                   <div>
                     Total Number of Items: {this.props.usersCart.totalQuantity}
                   </div>
-                  <div>Subtotal: ${this.props.usersCart.totalPrice / 100}</div>
+                  <div>
+                    Subtotal: ${(this.props.usersCart.totalPrice / 100).toFixed(
+                      2
+                    )}
+                  </div>
                   <div>Shipping: FREE </div>
                   <div>
                     Total: $
                     {this.props.usersCart
-                      ? this.props.usersCart.totalPrice / 100
+                      ? (this.props.usersCart.totalPrice / 100).toFixed(2)
                       : 'nothing yet'}
                   </div>
                 </div>
