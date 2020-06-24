@@ -21,16 +21,15 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           </div>
           <h1 id="never_bored">NEVER-BORED</h1>
           <div className="nav">
-            <a href="#" onClick={handleClick} className="link">
-          <div className="nav_right">
-            <Link to="/order_history">Order History</Link>
-            <a href="#" onClick={handleClick}>
-
-              Logout
-            </a>
-            <Link to="/cart" className="link">
-              Cart : *code tbd*
-            </Link>
+            <div className="nav_right">
+              <Link to="/order_history">Order History</Link>
+              <a href="#" onClick={handleClick}>
+                Logout
+              </a>
+              <Link to="/cart" className="link">
+                Cart : *code tbd*
+              </Link>
+            </div>
           </div>
         </div>
       ) : (
