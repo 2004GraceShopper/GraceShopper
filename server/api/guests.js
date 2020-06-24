@@ -9,28 +9,15 @@ router.post('/', async (req, res, next) => {
   try {
     Guest.create(req.body)
       .then(function(guest) {
-        console.log('.then ran!')
         return res.json(guest)
       })
       .catch(Sequelize.ValidationError, function(msg) {
-        console.log("What's the secret message?: ", msg)
+        // console.log("What's the secret message?: ", msg) // it's a sequelize validation error message!
         return res.status(422).send(msg)
       })
       .catch(function(err) {
         next(err)
       })
-
-    // const helperFunc = (err) => {
-    //   res.json(err)
-    //   next(err)
-    // }
-    // req.login(
-    //   guest,
-    //   err => (err ? res.json(err) : res.json(guest))
-    // )
-    const help = () => {
-      console.log('help!')
-    }
   } catch (error) {
     res.json(error)
     next(error)

@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {Product, User, Cart, Item} = require('../db/models')
+const {findOrGetTheCart} = require('../../utility')
 module.exports = router
 
 // Add to cart.
@@ -184,6 +185,21 @@ router.put('/edit/:method', async (req, res, next) => {
 
     // return the updated cart
     res.json(cartToSendBack)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/buy', async (req, res, next) => {
+  console.log('PUT to /api/cart/buy', req.body)
+  try {
+    theCart = await Cart.findByPk(req.body.cartId)
+    theCart.purchased = true
+    await theCart.save()
+
+    aFreshCart = await findOrGetTheCart(req.user, req.session.id)
+    console.log('aFreshCart in api/cart/buy: ', aFreshCart)
+    res.json(aFreshCart)
   } catch (error) {
     next(error)
   }

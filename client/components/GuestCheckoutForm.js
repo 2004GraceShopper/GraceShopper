@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Redirect} from 'react-router-dom'
 import {createGuest} from '../store/guest'
 
 export class GuestCheckoutForm extends React.Component {

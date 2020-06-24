@@ -54,7 +54,7 @@ class Cart extends React.Component {
       return <Redirect to="/cart/guest_checkout" />
     }
     if (redirectingCheckout && isLoggedIn) {
-      return <Redirect to="/" />
+      return <Redirect to="/order_confirmation" />
     }
 
     let cartItems = []

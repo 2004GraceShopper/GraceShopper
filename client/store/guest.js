@@ -11,16 +11,14 @@ const postGuest = guest => ({type: POST_GUEST, guest})
 export const createGuest = guest => async dispatch => {
   try {
     const res = await axios.post('/api/guests', guest)
-    console.log('What is the front getting back?: ', res)
     dispatch(postGuest(res.data))
 
     try {
-      history.push('/')
+      history.push('/order_confirmation')
     } catch (dispatchOrHistoryErr) {
       console.error(dispatchOrHistoryErr)
     }
   } catch (err) {
-    console.log('Diddlysquat')
     console.log('Error: ', err)
     console.error(err)
   }
