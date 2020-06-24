@@ -6,8 +6,7 @@ const PathNotFound = () => {
     <div className="pageNotFound">
       <div className="errorcontainer">
         <div className="content">
-          <h2>404</h2>
-          <p> Oops La!</p>
+          <h3>Oops La!</h3>
           <button className="errorButton" type="button">
             <Link to="/">Return to Home</Link>
           </button>

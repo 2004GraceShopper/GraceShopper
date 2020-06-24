@@ -53,21 +53,25 @@ class SingleProduct extends React.Component {
               <h3 className="product_price">${product.price / 100}</h3>
               <div>
                 <div>
-                  <label htmlFor={this.props.name}>Quantity</label>
-                  <input
-                    type="number"
-                    name="qty"
-                    value={this.state.quantity}
-                    onChange={this.handleChange}
-                  />
+                  <label htmlFor={this.props.name}>
+                    <div>Quantity:</div>
+                    <input
+                      type="number"
+                      name="qty"
+                      value={this.state.quantity}
+                      onChange={this.handleChange}
+                    />
+                  </label>
                 </div>
                 <button className="addToCart" onClick={() => handleClick()}>
                   Add To Cart
                 </button>
               </div>
-              <h4 className="product_publisher">{product.publisher}</h4>
+              <h4 className="product_publisher">
+                Publisher: {product.publisher}
+              </h4>
+              <div className="product_description">{product.description}</div>
             </div>
-            <div className="product_description">{product.description}</div>
           </div>
         </div>
       </div>
