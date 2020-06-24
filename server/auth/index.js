@@ -1,4 +1,6 @@
 const router = require('express').Router()
+const jwt = require('jsonwebtoken')
+const verifyToken = require('../api/verifyToken')
 const User = require('../db/models/user')
 const Cart = require('../db/models/cart')
 const Product = require('../db/models/product')
@@ -60,6 +62,13 @@ router.post('/login', async (req, res, next) => {
       res.status(401).send('Wrong username and/or password')
     } else {
       let theCart = await findOrGetTheCart(user, req.session.id)
+      //testing route protection with admin - this is successful!
+      let token
+      if (user.type === 'admin') {
+        token = jwt.sign({user: user}, 'secretkey')
+        req.session.token = token
+      }
+
       req.login(
         user,
         err => (err ? next(err) : res.json(generateResObj(user, theCart)))
@@ -102,9 +111,9 @@ router.get('/me', async (req, res) => {
   console.log('in routes, req.session.id: ', req.session.id)
   console.log('in routes, req.sessionID: ', req.sessionID)
   console.log('req.user: ', req.user)
+
   // Also setting cart:
   let theCart = await findOrGetTheCart(req.user, req.session.id)
-
   res.json(generateResObj(req.user, theCart))
 })
 

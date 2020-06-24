@@ -13,6 +13,16 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.get('/categories/:tag', async (req, res, next) => {
+  console.log(req.params.tag)
+  try {
+    const games = await Product.findByTag(req.params.tag)
+    !games ? res.sendStatus(404) : res.json(games)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.get('/:id', async (req, res, next) => {
   console.log('**GET api/products/:id**')
   try {
@@ -23,6 +33,7 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
+//should be protected
 router.post('/', async (req, res, next) => {
   try {
     const newProduct = await Product.create(req.body)
@@ -32,6 +43,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+//should be protected
 router.put('/:id', async (req, res, next) => {
   try {
     const [numberOfAffectedRows, updatedProduct] = await Product.update(
@@ -48,10 +60,11 @@ router.put('/:id', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+//should be protected
+router.delete('/', async (req, res, next) => {
   try {
     const deletedProduct = await Product.destroy({
-      where: {id: req.params.id}
+      where: {id: req.body.id}
     })
     !deletedProduct ? res.sendStatus(404) : res.sendStatus(204)
   } catch (error) {

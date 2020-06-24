@@ -1,19 +1,21 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchProducts} from '../store/allProducts'
 import {Link} from 'react-router-dom'
+import {getTaggedInServer} from '../store/allProducts'
 
-class AllProducts extends React.Component {
+//gets the from react router props
+// sends an axios request and the maps through the results
+
+class TaggedGame extends React.Component {
   componentDidMount() {
-    console.log('allproducts mounted')
-    this.props.getProducts()
+    this.props.getTagged(this.props.match.params.tag)
   }
 
   render() {
     return (
       <div className="container">
         <div id="all_products">
-          <h1>All Games</h1>
+          <h1>{this.props.match.params.tag.toUpperCase()} GAMES</h1>
           <div className="allProducts">
             {this.props.products.map(product => (
               <div key={product.id} className="single_product">
@@ -38,8 +40,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getProducts: () => dispatch(fetchProducts())
+    getTagged: tag => dispatch(getTaggedInServer(tag))
   }
 }
 
-export default connect(mapState, mapDispatch)(AllProducts)
+export default connect(mapState, mapDispatch)(TaggedGame)

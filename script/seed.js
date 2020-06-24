@@ -21,6 +21,14 @@ async function seed() {
       billingAddress: '123 Pug Ln, PugLife, NJ 07047',
       creditCardNum: 4012888888881881,
       shippingAddress: '125 Pug Ln, PugLife, NJ 07047'
+    }),
+    User.create({
+      type: 'admin',
+      email: 'julissa@email.com',
+      password: '123',
+      billingAddress: '123 Fullstack Ln, FullstackLife, NJ 07047',
+      creditCardNum: 4012888888881881,
+      shippingAddress: '125 Fullstack Ln, FullstackLife, NJ 07047'
     })
   ])
 
@@ -39,7 +47,8 @@ async function seed() {
       description:
         "Your preschooler's first Boggle game! Watch them learn as they play this colorful match game of  transforming letters into words.",
       imageUrl:
-        'https://www.hasbro.com/common/productimages/en_US/8ec0b9cc6d4010148bf09efbf894f9d4/E45A8144D56FE1124137D44306D4E979.jpg'
+        'https://www.hasbro.com/common/productimages/en_US/8ec0b9cc6d4010148bf09efbf894f9d4/E45A8144D56FE1124137D44306D4E979.jpg',
+      categories: ['word']
     }),
     Product.create({
       name: 'Medium',
@@ -48,7 +57,8 @@ async function seed() {
       description:
         "Harness your extra-sensory powers by accessing your partner's mind and determing the medium: the word that connects the words on your two cards.",
       imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/71SAeW04Z0L._AC_SL1500_.jpg'
+        'https://images-na.ssl-images-amazon.com/images/I/71SAeW04Z0L._AC_SL1500_.jpg',
+      categories: ['word']
     }),
     Product.create({
       name: 'Scrabble',
@@ -57,7 +67,8 @@ async function seed() {
       description:
         'Show your opponent whose boss in this classic war of words! Build words, add up your points and win.',
       imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/81OjLGNO5VL._AC_SL1500_.jpg'
+        'https://images-na.ssl-images-amazon.com/images/I/81OjLGNO5VL._AC_SL1500_.jpg',
+      categories: ['word']
     }),
     Product.create({
       name: 'Scattergories',
@@ -66,7 +77,8 @@ async function seed() {
       description:
         'Think fast to come up with items to fit the categories that start with a specific letter. You score points when you come up with items that nobody else does.',
       imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/81UD%2BvFaDHL._AC_SL1500_.jpg'
+        'https://images-na.ssl-images-amazon.com/images/I/81UD%2BvFaDHL._AC_SL1500_.jpg',
+      categories: ['word']
     }),
     Product.create({
       name: 'Taboo',
@@ -75,7 +87,8 @@ async function seed() {
       description:
         'Players race against the timer in this fun and fast-paced party game. Get teammates to say the Guess word without saying the forbidden words.',
       imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/61W-BK3-8tL._AC_SL1330_.jpg'
+        'https://images-na.ssl-images-amazon.com/images/I/61W-BK3-8tL._AC_SL1330_.jpg',
+      categories: ['word']
     }),
     Product.create({
       name: 'The Game of Life',
@@ -84,7 +97,8 @@ async function seed() {
       description:
         'Choose the life you want and see what happens when unexpected twists change the game!',
       imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/61v4C8o6thL._AC_SY400_.jpg'
+        'https://images-na.ssl-images-amazon.com/images/I/61v4C8o6thL._AC_SY400_.jpg',
+      categories: ['memory']
     }),
     Product.create({
       name: 'Root',
@@ -93,7 +107,8 @@ async function seed() {
       description:
         'Explore factions in a forest kingdom and find adventure as you gather supporters and coordinate revolts against the ruling regime ',
       imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/51Ath1IujLL._AC_SY400_.jpg'
+        'https://images-na.ssl-images-amazon.com/images/I/51Ath1IujLL._AC_SY400_.jpg',
+      categories: ['memory']
     }),
     Product.create({
       name: "Hoppy Floppy's Happy Hunt",
@@ -101,7 +116,8 @@ async function seed() {
       price: 1550,
       description: 'Help Hoppy Floppy hunt for colorful carrots!',
       imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/51-8Td1uvAL._AC_SY400_.jpg'
+        'https://images-na.ssl-images-amazon.com/images/I/51-8Td1uvAL._AC_SY400_.jpg',
+      categories: ['memory']
     }),
     Product.create({
       name: 'The Very Hungry Caterpillar Card Game',
@@ -110,7 +126,8 @@ async function seed() {
       description:
         'Explore the wonderous world of Eric Carle while learning the ABCs of the animal world.',
       imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/51KjFRXYWsL._AC_SY400_.jpg'
+        'https://images-na.ssl-images-amazon.com/images/I/51KjFRXYWsL._AC_SY400_.jpg',
+      categories: ['memory']
     }),
     Product.create({
       name: 'Candy Land',
@@ -119,7 +136,8 @@ async function seed() {
       description:
         'Travel through Licorice Lagoon and Peppermint Forest to see the King of Candy Land! Who can reach there first?',
       imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/81AuRjy59tL._AC_SL1464_.jpg'
+        'https://images-na.ssl-images-amazon.com/images/I/81AuRjy59tL._AC_SL1464_.jpg',
+      categories: ['memory']
     }),
     Product.create({
       name: 'Hungry Hungry Hippos ',
@@ -128,7 +146,8 @@ async function seed() {
       description:
         'Hungry Hippos and friends are ready to jump into the feeding frenzy one you release the marbles',
       imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/91EgnT-MXjL._AC_SL1500_.jpg'
+        'https://images-na.ssl-images-amazon.com/images/I/91EgnT-MXjL._AC_SL1500_.jpg',
+      categories: ['chance']
     }),
     Product.create({
       name: 'Sorry',
@@ -137,7 +156,8 @@ async function seed() {
       description:
         "Draw cards to move your pawns around the board! The first player to move all their pawns back home wins! Don't draw a sorry card or you'll be sent back to the beginning!",
       imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/81IxU6Y4LFL._AC_SL1500_.jpg'
+        'https://images-na.ssl-images-amazon.com/images/I/81IxU6Y4LFL._AC_SL1500_.jpg',
+      categories: ['chance']
     }),
     Product.create({
       name: 'Trouble',
@@ -146,7 +166,8 @@ async function seed() {
       description:
         "Be the first player to get all your pieces all the way around the board by rolling the dice! Watch out for other players, if they land on your current space you're in trouble and have to go back to the beginning!",
       imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/71jiWj19NRL._AC_SL1448_.jpg'
+        'https://images-na.ssl-images-amazon.com/images/I/71jiWj19NRL._AC_SL1448_.jpg',
+      categories: ['chance']
     }),
     Product.create({
       name: "Can't Fool Me",
@@ -155,7 +176,8 @@ async function seed() {
       description:
         "A cryptic clue is given and your a tasked to find the answer. Don't be fooled this is a game of wits!",
       imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/91u9lalR3HL._AC_SL1500_.jpg'
+        'https://images-na.ssl-images-amazon.com/images/I/91u9lalR3HL._AC_SL1500_.jpg',
+      categories: ['chance']
     }),
     Product.create({
       name: 'Guess Who?: High School Reunion',
@@ -164,7 +186,8 @@ async function seed() {
       description:
         "Were you most likely to own a fake ID?, Were you most likely to leave the prom with someone else's date? Players guess each other's mystery person by giving yes or no answers to fun and outrageous questions.",
       imageUrl:
-        'https://target.scene7.com/is/image/Target/GUEST_eb0c7737-4492-4fce-aca5-c0f96f16217c?fmt=webp&wid=1400&qlt=80'
+        'https://target.scene7.com/is/image/Target/GUEST_eb0c7737-4492-4fce-aca5-c0f96f16217c?fmt=webp&wid=1400&qlt=80',
+      categories: ['chance']
     }),
     Product.create({
       name: 'Dominion',
@@ -173,7 +196,8 @@ async function seed() {
       description:
         'You want dominion. All around you are lands ruled by Petty Lords and plagued by anarchy. You will bring civilization to these people by uniting them under your banner. But Alas, others have the same idea...',
       imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/9152Ik8HZ5L._AC_SL1500_.jpg'
+        'https://images-na.ssl-images-amazon.com/images/I/9152Ik8HZ5L._AC_SL1500_.jpg',
+      categories: ['strategy']
     }),
     Product.create({
       name: 'Insider',
@@ -182,7 +206,8 @@ async function seed() {
       description:
         'Are we controlled by what we hear and see? Do we really have free will? While commnunicating with the other players find the right answer to a quiz or find the person manipulating the discussion. Beware, the insider will do everything to hide their identity while misleading others.',
       imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/715I0yo6klL._AC_SL1500_.jpg'
+        'https://images-na.ssl-images-amazon.com/images/I/715I0yo6klL._AC_SL1500_.jpg',
+      categories: ['strategy']
     }),
     Product.create({
       name: 'CodeNames',
@@ -191,7 +216,8 @@ async function seed() {
       description:
         'Two rival spymasters know the sercret identitues of 25 agents. Their teammates only know the agents by their codenames. The teams complete to see who can make contact with all of their agents first.',
       imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/71ZHkM7fHwL._AC_SY879_.jpg'
+        'https://images-na.ssl-images-amazon.com/images/I/71ZHkM7fHwL._AC_SY879_.jpg',
+      categories: ['strategy']
     }),
     Product.create({
       name: 'Machi Koro',
@@ -200,7 +226,8 @@ async function seed() {
       description:
         'Congrats! You have just been elected as the Mayor of Machi Koro. Meets the demands of your citizens and grow Machi Koro to be the largest city in the region.',
       imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/916SrlIEQHL._AC_SL1500_.jpg'
+        'https://images-na.ssl-images-amazon.com/images/I/916SrlIEQHL._AC_SL1500_.jpg',
+      categories: ['strategy']
     }),
     Product.create({
       name: 'Azul',
@@ -209,7 +236,8 @@ async function seed() {
       description:
         'As a tile laying artist you have been challenged to embellish the walls of the royal palace of Dvora. Maximize the beauty of you work as well as your points by carefully drafting the correct quantity and styles of tiles.',
       imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/91AUH08qxfL._AC_SL1500_.jpg'
+        'https://images-na.ssl-images-amazon.com/images/I/91AUH08qxfL._AC_SL1500_.jpg',
+      categories: ['strategy']
     }),
     Product.create({
       name: 'Blokus',
@@ -218,7 +246,8 @@ async function seed() {
       description:
         'Stake your claim and defeat your opponents by strategically placing as many blocks on the board as possible. The player with the fewest remaining pieces win!',
       imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/71g60OwgOBL._AC_SL1500_.jpg'
+        'https://images-na.ssl-images-amazon.com/images/I/71g60OwgOBL._AC_SL1500_.jpg',
+      categories: ['strategy']
     }),
     Product.create({
       name: 'Monopoly',
@@ -227,7 +256,8 @@ async function seed() {
       description:
         'Experience the ups and downs of collecting property.Buy, sell, dream and scheme your way to riches. But it pays to play nice because fortunes can change at the roll of a dice.',
       imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/81qy%2BMXuxDL._AC_SL1392_.jpg'
+        'https://images-na.ssl-images-amazon.com/images/I/81qy%2BMXuxDL._AC_SL1392_.jpg',
+      categories: ['educational']
     }),
     Product.create({
       name: 'Mall Madness',
@@ -236,7 +266,8 @@ async function seed() {
       description:
         'Shop till you drop with this electronic talking shopping-spree game. The first player who buys 6 items and gets to their destination wins!',
       imageUrl:
-        'https://i.pinimg.com/originals/a0/a8/c9/a0a8c966e595ad38cc75d5613b77e9dc.jpg'
+        'https://i.pinimg.com/originals/a0/a8/c9/a0a8c966e595ad38cc75d5613b77e9dc.jpg',
+      categories: ['educational']
     }),
     Product.create({
       name: 'Trivial Pursuit',
@@ -245,7 +276,8 @@ async function seed() {
       description:
         'Gather friends and family to play a classic trivia game spanning 2,400 questions and 6 categories: Art & Literature,Geography, Science & Nature,Entertainment, Sports & Leisure, and History.The first player to correctly answer questions from each category (plus a bonus question) wins!',
       imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/810bBCmZ9LL._AC_SL1425_.jpg'
+        'https://images-na.ssl-images-amazon.com/images/I/810bBCmZ9LL._AC_SL1425_.jpg',
+      categories: ['educational']
     }),
     Product.create({
       name: 'Prime Climb',
@@ -254,7 +286,8 @@ async function seed() {
       description:
         'Roll the dice and add, subtract, multipy and divide your way to the the center of the board and win in this beautifully designed game which will inspire deep mathematical understanding while mastering arithmetic.',
       imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/913kkH4QHiL._AC_SX679_.jpg'
+        'https://images-na.ssl-images-amazon.com/images/I/913kkH4QHiL._AC_SX679_.jpg',
+      categories: ['educational']
     }),
     Product.create({
       name: 'Hacker Cybersecurity Coding Game',
@@ -263,7 +296,8 @@ async function seed() {
       description:
         'Learn programming principles through fun game play. Protect the world from cyber criminals by joining the white hat team of coders, hackers, and security engineers. Solve 120 coding problems ranging from beginner to expert level difficulty.',
       imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/61mzZZ1dMzL._AC_SL1000_.jpg'
+        'https://images-na.ssl-images-amazon.com/images/I/61mzZZ1dMzL._AC_SL1000_.jpg',
+      categories: ['educational']
     })
   ])
 

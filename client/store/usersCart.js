@@ -38,9 +38,11 @@ export const addToCartInServer = (productId, quantity, cartId) => {
   return async dispatch => {
     console.log('AddToCart thunk is running! CartId: ', cartId)
     try {
-      const {data} = await axios.put(
-        `/api/cart/add/${productId}/${quantity}/${cartId}`
-      )
+      const {data} = await axios.put(`/api/cart/add/`, {
+        productId,
+        quantity,
+        cartId
+      })
       console.log('***This is the data', data)
       dispatch(addToCart(data))
     } catch (error) {
