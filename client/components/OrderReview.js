@@ -81,7 +81,9 @@ class OrderReview extends React.Component {
                     Total Number of Items: {this.props.usersCart.totalQuantity}
                   </div>
                   <div>
-                    Subtotal: $({this.props.usersCart.totalPrice / 100}).toFixed(2)
+                    Subtotal: ${(this.props.usersCart.totalPrice / 100).toFixed(
+                      2
+                    )}
                   </div>
                   <div>Shipping: FREE </div>
                   <div> </div>
