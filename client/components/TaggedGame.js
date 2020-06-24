@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {getTaggedInServer} from '../store/allProducts'
+import {getTaggedInServer, clearProductsThunk} from '../store/allProducts'
 
 //gets the from react router props
 // sends an axios request and the maps through the results
@@ -9,6 +9,10 @@ import {getTaggedInServer} from '../store/allProducts'
 class TaggedGame extends React.Component {
   componentDidMount() {
     this.props.getTagged(this.props.match.params.tag)
+  }
+
+  componentWillUnmount() {
+    this.props.clearProducts()
   }
 
   render() {
@@ -40,7 +44,10 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getTagged: tag => dispatch(getTaggedInServer(tag))
+    getTagged: tag => dispatch(getTaggedInServer(tag)),
+    clearProducts: () => {
+      dispatch(clearProductsThunk())
+    }
   }
 }
 

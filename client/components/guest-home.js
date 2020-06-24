@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchProducts} from '../store/allProducts'
+import {fetchProducts, clearProductsThunk} from '../store/allProducts'
 import {Link} from 'react-router-dom'
 //thoughts: ability to toggle a div saying "welcome back {user}" based on logged in status
 // thus no longer making this a dumb compoenent
@@ -8,6 +8,11 @@ class GuestHome extends React.Component {
   componentDidMount() {
     this.props.getProducts()
   }
+
+  componentWillUnmount() {
+    this.props.clearProducts()
+  }
+
   render() {
     console.log(this.props, 'GUEST HOME')
     return (
@@ -51,7 +56,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getProducts: () => dispatch(fetchProducts())
+    getProducts: () => dispatch(fetchProducts()),
+    clearProducts: () => dispatch(clearProductsThunk())
   }
 }
 
