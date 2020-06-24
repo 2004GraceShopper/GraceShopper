@@ -12,7 +12,8 @@ import {
   Cart,
   GuestCheckoutForm,
   GuestHome,
-  Signup
+  Signup,
+  TaggedGame
 } from './components'
 import {me} from './store'
 import PathNotFound from './components/PathNotFound'
@@ -57,6 +58,7 @@ class Routes extends Component {
           component={GuestCheckoutForm}
         />
         <Route exact path="/oldsignup" component={Signup} />
+        <Route exact path="/categories/:tag" component={TaggedGame} />
 
         {/* Need to consider when :id is null (aka guest) */}
         <Route exact path="/cart" component={Cart} />
