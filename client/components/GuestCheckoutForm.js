@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Redirect} from 'react-router-dom'
 import {createGuest} from '../store/guest'
 
 export class GuestCheckoutForm extends React.Component {
@@ -27,9 +26,9 @@ export class GuestCheckoutForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault()
     this.props.addGuest(this.state)
-    this.setState(prevState => ({
-      redirectToConfirmation: !prevState.redirectToConfirmation
-    }))
+    // this.setState(prevState => ({
+    //   redirectToConfirmation: !prevState.redirectToConfirmation
+    // }))
   }
   amIFilledOut() {
     // If all of these things are filled out, then notFilledOut is false!
@@ -51,8 +50,8 @@ export class GuestCheckoutForm extends React.Component {
   }
 
   render() {
-    const redirectToConfirmation = this.state.redirectToConfirmation
-    if (redirectToConfirmation) return <Redirect to="/" />
+    // const redirectToConfirmation = this.state.redirectToConfirmation
+    // if (redirectToConfirmation) return <Redirect to="/" />
     return (
       <div className="container">
         <div className="form_sub-container">
@@ -112,7 +111,7 @@ export class GuestCheckoutForm extends React.Component {
 }
 const mapDispatch = dispatch => {
   return {
-    addGuest: guests => dispatch(createGuest(guests))
+    addGuest: guest => dispatch(createGuest(guest))
   }
 }
 export default connect(null, mapDispatch)(GuestCheckoutForm)

@@ -14,4 +14,7 @@ export {default as Cart} from './Cart'
 export {default as GuestCheckoutForm} from './GuestCheckoutForm'
 export {default as GuestHome} from './guest-home'
 export {default as SignUpForm} from './SignUpForm'
+export {default as OrderReview} from './OrderReview'
+export {default as Thanks} from './Thanks'
 export {default as TaggedGame} from './TaggedGame'
+

@@ -4,7 +4,6 @@ import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
   Login,
-  //Signup,
   SignUpForm,
   UserHome,
   AllProducts,
@@ -12,8 +11,11 @@ import {
   Cart,
   GuestCheckoutForm,
   GuestHome,
+  OrderReview,
+  Thanks,
   Signup,
   TaggedGame
+
 } from './components'
 import {me} from './store'
 import PathNotFound from './components/PathNotFound'
@@ -57,6 +59,8 @@ class Routes extends Component {
           path="/cart/guest_checkout"
           component={GuestCheckoutForm}
         />
+        <Route exact path="/order_confirmation" component={OrderReview} />
+        <Route exact path="/thanks" component={Thanks} />
         <Route exact path="/oldsignup" component={Signup} />
         <Route exact path="/categories/:tag" component={TaggedGame} />
 
