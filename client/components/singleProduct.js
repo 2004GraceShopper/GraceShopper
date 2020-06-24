@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 // import {Link} from 'react-router-dom'
-import {fetchProduct} from '../store/singleProduct'
+import {fetchProduct, clearProductThunk} from '../store/singleProduct'
 import {addToCartInServer} from '../store/usersCart'
 
 class SingleProduct extends React.Component {
@@ -15,6 +15,10 @@ class SingleProduct extends React.Component {
 
   componentDidMount() {
     this.props.getProduct(this.props.match.params.id)
+  }
+
+  componentWillUnmount() {
+    this.props.clearProduct()
   }
 
   handleChange(event) {
@@ -91,6 +95,9 @@ const mapDispatch = dispatch => {
     },
     addToCartFunc: (productId, quantity, usersCartId) => {
       return dispatch(addToCartInServer(productId, quantity, usersCartId))
+    },
+    clearProduct: () => {
+      return dispatch(clearProductThunk())
     }
   }
 }
