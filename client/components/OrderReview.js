@@ -42,7 +42,7 @@ class OrderReview extends React.Component {
     return (
       <div className="container">
         <div id="cart">
-          <h3>Confirm Your Order</h3>
+          <h2>Confirm Your Order</h2>
           <div id="cart_view">
             <div className="cart_items">
               <h4 className="items">Items: </h4>
@@ -59,7 +59,11 @@ class OrderReview extends React.Component {
                           <h3>Quantity: {product.item.quantity}</h3>
                           <h3>
                             Total Price: $
-                            {product.item.quantity * product.price / 100}
+                            {(
+                              product.item.quantity *
+                              product.price /
+                              100
+                            ).toFixed(2)}
                           </h3>
                           <div />
                         </div>
@@ -72,18 +76,20 @@ class OrderReview extends React.Component {
             <div className="order_summary_container">
               <div className="order_summary">
                 <div className="order_summary_specs">
-                  <h4>Order Summary:</h4>
+                  <h3>Order Summary:</h3>
                   <div>
                     Total Number of Items: {this.props.usersCart.totalQuantity}
                   </div>
-                  <div>Subtotal: ${this.props.usersCart.totalPrice / 100}</div>
+                  <div>
+                    Subtotal: $({this.props.usersCart.totalPrice / 100}).toFixed(2)
+                  </div>
                   <div>Shipping: FREE </div>
                   <div> </div>
                   <div>
                     <h4>
                       Total: $
                       {this.props.usersCart
-                        ? this.props.usersCart.totalPrice / 100
+                        ? (this.props.usersCart.totalPrice / 100).toFixed(2)
                         : 'nothing yet'}
                     </h4>
                   </div>

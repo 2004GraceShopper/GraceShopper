@@ -50,7 +50,9 @@ class SingleProduct extends React.Component {
           <div className="product_specs">
             <div className="product_headers">
               <h2 className="product_name">{product.name}</h2>
-              <h3 className="product_price">${product.price / 100}</h3>
+              <h3 className="product_price">
+                ${(product.price / 100).toFixed(2)}
+              </h3>
               <div>
                 <div>
                   <label htmlFor={this.props.name}>

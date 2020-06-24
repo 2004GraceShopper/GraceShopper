@@ -2,12 +2,19 @@ import axios from 'axios'
 
 //action types
 const GET_PRODUCTS = 'GET_PRODUCTS'
+const CLEAR_PRODUCTS = 'CLEAR_PRODUCTS'
 
 //action creator
 export const getProducts = products => {
   return {
     type: GET_PRODUCTS,
     products
+  }
+}
+
+const clearProducts = () => {
+  return {
+    type: CLEAR_PRODUCTS
   }
 }
 
@@ -26,11 +33,24 @@ export const getTaggedInServer = tag => {
     }
   }
 }
+
+export const clearProductsThunk = () => {
+  return dispatch => {
+    try {
+      dispatch(clearProducts())
+    } catch (error) {
+      console.log('this did not clear', error)
+    }
+  }
+}
+
 //reducer
 export default function(state = [], action) {
   switch (action.type) {
     case GET_PRODUCTS:
       return action.products
+    case CLEAR_PRODUCTS:
+      return []
     default:
       return state
   }

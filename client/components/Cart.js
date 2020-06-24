@@ -75,7 +75,7 @@ class Cart extends React.Component {
     return (
       <div className="container">
         <div id="cart">
-          <h3>Your Cart:</h3>
+          <h2>Your Cart:</h2>
           <div id="cart_view">
             <div className="cart_items">
               <h4 className="items">Items: </h4>
@@ -84,38 +84,46 @@ class Cart extends React.Component {
                   ? cartItems.map(product => {
                       return (
                         <div key={product.id} className="single_product_cart">
-                          <div className="image">
+                          <div className="cart_image">
                             <img src={product.imageUrl} />
                           </div>
                           <div className="product_specs">
                             <div className="product_headers">
                               <h2 className="product_name">{product.name}</h2>
-                              <h3>Quantity: {product.item.quantity}</h3>
-                              <button
-                                type="button"
-                                onClick={() =>
-                                  this.props.increaseQuant(
-                                    this.props.usersCart.id,
-                                    product.id
-                                  )
-                                }
-                              >
-                                +
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() =>
-                                  this.props.decreaseQuant(
-                                    this.props.usersCart.id,
-                                    product.id
-                                  )
-                                }
-                              >
-                                -
-                              </button>
+                              <div className="product_quantity">
+                                <h3>Quantity: {product.item.quantity}</h3>
+                                <div className="inc_dec">
+                                  <button
+                                    type="button"
+                                    onClick={() =>
+                                      this.props.increaseQuant(
+                                        this.props.usersCart.id,
+                                        product.id
+                                      )
+                                    }
+                                  >
+                                    +
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() =>
+                                      this.props.decreaseQuant(
+                                        this.props.usersCart.id,
+                                        product.id
+                                      )
+                                    }
+                                  >
+                                    -
+                                  </button>
+                                </div>
+                              </div>
                               <h3>
                                 Total Price: $
-                                {product.item.quantity * product.price / 100}
+                                {(
+                                  product.item.quantity *
+                                  product.price /
+                                  100
+                                ).toFixed(2)}
                               </h3>
                               <button
                                 type="submit"
@@ -142,16 +150,20 @@ class Cart extends React.Component {
             <div className="order_summary_container">
               <div className="order_summary">
                 <div className="order_summary_specs">
-                  <h4>Order Summary:</h4>
+                  <h3>Order Summary:</h3>
                   <div>
                     Total Number of Items: {this.props.usersCart.totalQuantity}
                   </div>
-                  <div>Subtotal: ${this.props.usersCart.totalPrice / 100}</div>
+                  <div>
+                    Subtotal: ${(this.props.usersCart.totalPrice / 100).toFixed(
+                      2
+                    )}
+                  </div>
                   <div>Shipping: FREE </div>
                   <div>
                     Total: $
                     {this.props.usersCart
-                      ? this.props.usersCart.totalPrice / 100
+                      ? (this.props.usersCart.totalPrice / 100).toFixed(2)
                       : 'nothing yet'}
                   </div>
                 </div>
