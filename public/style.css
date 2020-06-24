@@ -161,8 +161,8 @@ img {
 .product_headers {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  align-content: flex-start;
+  /* align-items: center; */
+  /* align-content: flex-start; */
   background-color: rgb(251, 254, 202);
   padding: 2rem 2rem;
 }
@@ -250,9 +250,9 @@ img {
   flex-wrap: nowrap;
   flex-direction: row;
   align-content: space-around;
-  justify-content: center;
-  padding: 2rem 2rem;
-  width: 100%;
+  /* justify-content: center; */
+  /* padding: 2rem 2rem; */
+  /* width: 100%; */
   /* background-color: white; */
 }
 
@@ -278,11 +278,11 @@ img {
   padding: 2rem 2rem;
 }
 
-.inc_dec {
+/* .inc_dec {
   display: flex;
   flex-direction: row;
   padding: 2rem 2rem;
-}
+} */
 
 .product_quantity {
   display: flex;
@@ -348,6 +348,7 @@ form {
   justify-content: center;
   align-items: center;
   background: url(west-elm-oakbrook-design-crew-06.jpg) #151729;
+  background-position: left center;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
 }
 
