@@ -14,7 +14,6 @@ import {
   OrderReview,
   Thanks,
   Signup,
-  Thanks,
   OrderHistory,
   TaggedGame
 } from './components'
