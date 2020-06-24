@@ -10,8 +10,8 @@ export const UserHome = props => {
   const {email} = props
 
   return (
-    <div>
-      <h3>Welcome back, {email.slice(0, email.indexOf('@'))}</h3>
+    <div className="user_home">
+      <h3>Welcome back, {email.slice(0, email.indexOf('@'))}!</h3>
       <GuestHome />
     </div>
   )

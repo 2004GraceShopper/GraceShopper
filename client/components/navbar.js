@@ -22,8 +22,10 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <h1 id="never_bored">NEVER-BORED</h1>
           <div className="nav">
             <div className="nav_right">
-              <Link to="/order_history">Order History</Link>
-              <a href="#" onClick={handleClick}>
+              <Link to="/order_history" className="link">
+                Order History
+              </Link>
+              <a href="#" onClick={handleClick} className="link">
                 Logout
               </a>
               <Link to="/cart" className="link">
