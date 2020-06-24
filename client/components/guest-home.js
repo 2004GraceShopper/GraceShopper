@@ -19,11 +19,23 @@ class GuestHome extends React.Component {
             <div>Welcome to the wonderful world of board games! </div>
           </div>
           <div id="tags">
-            <Link to="/categories/memory">Memory</Link>
-            <Link to="/categories/strategy">Strategy</Link>
-            <Link to="/categories/chance"> Chance</Link>
-            <Link to="/categories/educational">Educational</Link>
-            <Link to="/categories/word"> Word-Based</Link>
+            <Link to="/categories/memory" className="link">
+              Memory
+            </Link>
+            <Link to="/categories/strategy" className="link">
+              Strategy
+            </Link>
+            <Link to="/categories/chance" className="link">
+              {' '}
+              Chance
+            </Link>
+            <Link to="/categories/educational" className="link">
+              Educational
+            </Link>
+            <Link to="/categories/word" className="link">
+              {' '}
+              Word-Based
+            </Link>
           </div>
         </div>
       </div>

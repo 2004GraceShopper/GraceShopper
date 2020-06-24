@@ -11,30 +11,46 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       {isLoggedIn ? (
         <div className="nav_container">
           {/* The navbar will show these links after you log in */}
-          <div className="nav_left">
-            <Link to="/home">Home</Link>
-            <Link to="/games">All Games</Link>
+          <div className="nav">
+            <Link to="/home" className="link">
+              Home
+            </Link>
+            <Link to="/games" className="link">
+              All Games
+            </Link>
           </div>
           <h1 id="never_bored">NEVER-BORED</h1>
-          <div className="nav_right">
-            <a href="#" onClick={handleClick}>
+          <div className="nav">
+            <a href="#" onClick={handleClick} className="link">
               Logout
             </a>
-            <Link to="/cart">Cart : *code tbd*</Link>
+            <Link to="/cart" className="link">
+              Cart : *code tbd*
+            </Link>
           </div>
         </div>
       ) : (
         <div className="nav_container">
           {/* The navbar will show these links before you log in */}
           <div className="nav_left">
-            <Link to="/">Home</Link>
-            <Link to="/games">All Games</Link>
+            <Link to="/" className="link">
+              Home
+            </Link>
+            <Link to="/games" className="link">
+              All Games
+            </Link>
           </div>
           <h1 id="never_bored">NEVER-BORED</h1>
           <div className="nav_right">
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
-            <Link to="/cart">Cart : *code tbd*</Link>
+            <Link to="/login" className="link">
+              Login
+            </Link>
+            <Link to="/signup" className="link">
+              Sign Up
+            </Link>
+            <Link to="/cart" className="link">
+              Cart : *code tbd*
+            </Link>
           </div>
         </div>
       )}

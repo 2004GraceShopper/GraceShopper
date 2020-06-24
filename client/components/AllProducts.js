@@ -16,7 +16,7 @@ class AllProducts extends React.Component {
           <div className="allProducts">
             {this.props.products.map(product => (
               <div key={product.id} className="single_product">
-                <Link to={`/games/${product.id}`}>
+                <Link to={`/games/${product.id}`} className="link">
                   <img src={product.imageUrl} />
                   <h2>{product.name}</h2>
                 </Link>

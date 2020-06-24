@@ -87,30 +87,29 @@ class OrderReview extends React.Component {
                         : 'nothing yet'}
                     </h4>
                   </div>
-                </div>
-
-                <div className="cart_buttons">
-                  <button
-                    disabled={!this.props.usersCart.totalQuantity}
-                    type="submit"
-                    onClick={this.handleSubmit}
-                  >
-                    Submit Order
-                  </button>
+                  <div className="order_summary">
+                    <h5>Shipping Address</h5>
+                    <div>{client.shippingAddress}</div>
+                    <h5>Billing Address</h5>
+                    <div>{client.billingAddress}</div>
+                    <h5>Email</h5>
+                    <div>{client.email}</div>
+                    <h5>Payment Info</h5>
+                    <div>
+                      We're not gonna disclose that because we need to implement
+                      a secure way of handling your payment info!
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="order_summary">
-                <h5>Shipping Address</h5>
-                <div>{client.shippingAddress}</div>
-                <h5>Billing Address</h5>
-                <div>{client.billingAddress}</div>
-                <h5>Email</h5>
-                <div>{client.email}</div>
-                <h5>Payment Info</h5>
-                <div>
-                  We're not gonna disclose that because we need to implement a
-                  secure way of handling your payment info!
-                </div>
+              <div className="cart_buttons">
+                <button
+                  disabled={!this.props.usersCart.totalQuantity}
+                  type="submit"
+                  onClick={this.handleSubmit}
+                >
+                  Submit Order
+                </button>
               </div>
             </div>
           </div>
