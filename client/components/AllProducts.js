@@ -1,12 +1,17 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchProducts} from '../store/allProducts'
+import {fetchProducts, clearProductsThunk} from '../store/allProducts'
 import {Link} from 'react-router-dom'
 
 class AllProducts extends React.Component {
   componentDidMount() {
     console.log('allproducts mounted')
     this.props.getProducts()
+  }
+
+  componentWillUnmount() {
+    console.log('allProducts unmounted')
+    this.props.clearProducts()
   }
 
   render() {
@@ -38,7 +43,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getProducts: () => dispatch(fetchProducts())
+    getProducts: () => dispatch(fetchProducts()),
+    clearProducts: () => dispatch(clearProductsThunk())
   }
 }
 
