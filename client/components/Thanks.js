@@ -4,10 +4,12 @@ import {Redirect} from 'react-router-dom'
 
 const Thanks = () => {
   return (
-    <div>
-      <h1>Thanks for your order!</h1>
-      <h5>...sucker</h5>
-      <h6>muahahahhahahahahahhaha</h6>
+    <div className="thankyou">
+      <div className="innerthanks">
+        <h1>Thanks for your order!</h1>
+        <img src="shopping copy.png" /> <br />
+        <img src="check-2.png" />
+      </div>
     </div>
   )
 }

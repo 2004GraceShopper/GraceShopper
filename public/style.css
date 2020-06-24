@@ -250,8 +250,10 @@ img {
   flex-wrap: nowrap;
   flex-direction: row;
   align-content: space-around;
+
   /* justify-content: center; */
   /* padding: 2rem 2rem; */
+
   /* width: 100%; */
   /* background-color: white; */
 }
@@ -387,6 +389,29 @@ form {
   border-radius: 25px;
   border-bottom: 4px solid #4a4a4a;
 }
+
+/*THANK YOU PAGE */
+.thankyou {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  right: 10%;
+  bottom: 10%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+}
+
+.thankyou h1 {
+  font-size: 50px;
+}
+
+.innerthanks {
+  text-align: center;
 
 /* USER_HOME */
 .user_home {
