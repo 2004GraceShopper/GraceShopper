@@ -33,6 +33,7 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
+//should be protected
 router.post('/', async (req, res, next) => {
   try {
     const newProduct = await Product.create(req.body)
@@ -42,6 +43,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+//should be protected
 router.put('/:id', async (req, res, next) => {
   try {
     const [numberOfAffectedRows, updatedProduct] = await Product.update(
@@ -58,10 +60,11 @@ router.put('/:id', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+//should be protected
+router.delete('/', async (req, res, next) => {
   try {
     const deletedProduct = await Product.destroy({
-      where: {id: req.params.id}
+      where: {id: req.body.id}
     })
     !deletedProduct ? res.sendStatus(404) : res.sendStatus(204)
   } catch (error) {
