@@ -252,7 +252,7 @@ img {
   align-content: space-around;
   justify-content: center;
   padding: 2rem 2rem;
-  width: 100%;
+  /* width: 100%; */
   /* background-color: white; */
 }
 
